@@ -1,14 +1,33 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta charset="utf-8" />
   <title>Retro Bowl | Arcade</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
-    #canvas { display: block; width: 100%; height: 100%; }
+    body { background: #000; color: #ccc; margin: 0; padding: 0; border: 0; }
+    canvas {
+      image-rendering: optimizeSpeed;
+      -webkit-interpolation-mode: nearest-neighbor;
+      -ms-touch-action: none;
+      margin: 0; padding: 0; border: 0;
+    }
+    :-webkit-full-screen #canvas { width: 100%; height: 100%; }
+    :-webkit-full-screen { width: 100%; height: 100%; }
+    div.gm4html5_div_class { margin: 0; padding: 0; border: 0; }
+    div.gm4html5_login {
+      padding: 20px; position: absolute; border: solid 2px #000;
+      background-color: #404040; color: #0f0; border-radius: 15px;
+      box-shadow: #101010 20px 20px 40px;
+    }
+    div.gm4html5_cancel_button { float: right; }
+    div.gm4html5_login_button  { float: left; }
+    div.gm4html5_login_header  { text-align: center; }
     #backBtn {
       position: fixed; top: 16px; left: 16px; z-index: 10000;
       background: rgba(0,0,0,0.65); color: rgba(255,255,255,0.85);
@@ -23,7 +42,14 @@
 </head>
 <body>
   <a href="/" id="backBtn">← Arcade</a>
-  <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
-  <script src="html5game/retrobowl.js"></script>
+  <div class="gm4html5_div_class" id="gm4html5_div_id">
+    <img src="html5game/splash.png" id="GM4HTML5_loadingscreen"
+         alt="GameMaker:HTML5 loading screen" style="display:none" />
+    <canvas id="canvas" width="960" height="540">
+      <p>Your browser does not support HTML5 canvas.</p>
+    </canvas>
+  </div>
+  <script type="text/javascript" src="html5game/retrobowl.js"></script>
+  <script>window.onload = GameMaker_Init;</script>
 </body>
 </html>
