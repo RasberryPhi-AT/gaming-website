@@ -1,0 +1,13 @@
+{
+  "games": [
+    {
+      "id": "balatro",
+      "name": "Balatro",
+      "description": "A roguelike deck-building poker game. Discover powerful Joker combos, play poker hands, and beat every blind.",
+      "color": "#120508",
+      "accent": "#c41230",
+      "highlight": "#ffd700",
+      "tags": ["Card Game", "Roguelike", "Strategy"]
+    }
+  ]
+}

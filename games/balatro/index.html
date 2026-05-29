@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, minimum-scale=1, maximum-scale=1">
+  <title>Balatro | Arcade</title>
+  <link rel="stylesheet" type="text/css" href="theme/love.css">
+  <script src="consolewrapper.js"></script>
+  <style>
+    #introScreen { display: none !important; }
+    #backBtn:hover { opacity: 1 !important; background: rgba(0,0,0,0.85) !important; border-color: rgba(255,255,255,0.25) !important; }
+  </style>
+</head>
+<body>
+  <a href="/" id="backBtn" style="position:fixed;top:16px;left:16px;z-index:10000;background:rgba(0,0,0,0.65);color:rgba(255,255,255,0.85);padding:8px 16px;border-radius:8px;text-decoration:none;font-family:system-ui,sans-serif;font-size:13px;font-weight:600;letter-spacing:0.5px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);opacity:0.55;transition:opacity 0.2s,background 0.2s,border-color 0.2s">← Arcade</a>
+
+  <div id="introScreen">
+    <h1>hello this is hanson</h1>
+    <p>
+      please do not redistribute this game<br>
+      as i worked very hard on to let people play it but people paid for it so please dont make it unfair,<br>
+      thanks big bro ask me for any game you want to play and i gotchu
+    </p>
+    <button onclick="document.getElementById('introScreen').style.display='none'">
+      press if you are a good boy
+    </button>
+  </div>
+
+  <center>
+    <div>
+      <canvas id="loadingCanvas" oncontextmenu="event.preventDefault()" width="800" height="600"></canvas>
+      <canvas id="canvas" oncontextmenu="event.preventDefault()" width="100%" height="100%"></canvas>
+    </div>
+  </center>
+
+  <script type="text/javascript">
+    window.callad = () => {
+      window.parent.postMessage({ type: 'adcall' }, '*');
+    };
+
+    var canvas = document.getElementById("loadingCanvas");
+    canvas.width  = window.innerWidth  || document.documentElement.clientWidth  || document.body.clientWidth;
+    canvas.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+    function goFullScreen() {
+      var c = document.getElementById("canvas");
+      if (c.requestFullScreen)        c.requestFullScreen();
+      else if (c.webkitRequestFullScreen) c.webkitRequestFullScreen();
+      else if (c.mozRequestFullScreen)    c.mozRequestFullScreen();
+    }
+
+    function FullScreenHook() {
+      var c = document.getElementById("canvas");
+      c.width  = window.innerWidth  || document.documentElement.clientWidth  || document.body.clientWidth;
+      c.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    }
+
+    var loadingContext = document.getElementById('loadingCanvas').getContext('2d');
+
+    function drawLoadingText(text) {
+      var c = loadingContext.canvas;
+      loadingContext.fillStyle = "rgb(142, 195, 227)";
+      loadingContext.fillRect(0, 0, c.scrollWidth, c.scrollHeight);
+      loadingContext.font = '2em arial';
+      loadingContext.textAlign = 'center';
+      loadingContext.fillStyle = "rgb(11, 86, 117)";
+      loadingContext.fillText(text, c.scrollWidth / 2, c.scrollHeight / 2);
+    }
+
+    window.onload  = function () { window.focus(); };
+    window.onclick = function () { window.focus(); };
+
+    window.addEventListener("keydown", function (e) {
+      if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) e.preventDefault();
+    }, false);
+
+    var Module = {
+      arguments: ["./game.love"],
+      INITIAL_MEMORY: 256000000,
+      printErr: console.error.bind(console),
+      canvas: (function () {
+        var c = document.getElementById('canvas');
+        c.addEventListener("webglcontextlost", function (e) {
+          alert('WebGL context lost. You will need to reload the page.');
+          e.preventDefault();
+        }, false);
+        return c;
+      })(),
+      setStatus: function (text) {
+        if (text) {
+          drawLoadingText(text);
+        } else if (Module.remainingDependencies === 0) {
+          document.getElementById('loadingCanvas').style.display = 'none';
+          document.getElementById('canvas').style.visibility = 'visible';
+        }
+      },
+      totalDependencies: 0,
+      remainingDependencies: 0,
+      monitorRunDependencies: function (left) {
+        this.remainingDependencies = left;
+        this.totalDependencies = Math.max(this.totalDependencies, left);
+        Module.setStatus(left
+          ? 'Preparing... (' + (this.totalDependencies - left) + '/' + this.totalDependencies + ')'
+          : 'All downloads complete.');
+      }
+    };
+
+    Module.setStatus('Downloading...');
+
+    window.onerror = function () {
+      Module.setStatus('Exception thrown, see JavaScript console');
+      Module.setStatus = function (text) {
+        if (text) Module.printErr('[post-exception status] ' + text);
+      };
+    };
+
+    var applicationLoad = function () { Love(Module); };
+  </script>
+  <script type="text/javascript" src="game.js?v=d7e34743-2fea-4de6-8a0e-1103b5fcf07f"></script>
+  <script async type="text/javascript" src="love.js" onload="applicationLoad(this)"></script>
+</body>
+</html>
