@@ -8,6 +8,24 @@
       "accent": "#c41230",
       "highlight": "#ffd700",
       "tags": ["Card Game", "Roguelike", "Strategy"]
+    },
+    {
+      "id": "cookieclicker",
+      "name": "Cookie Clicker",
+      "description": "The legendary idle clicker. Bake cookies, recruit grandmas, and build a cookie empire one click at a time.",
+      "color": "#1a0d00",
+      "accent": "#c8722a",
+      "highlight": "#fff8dc",
+      "tags": ["Idle", "Clicker", "Strategy"]
+    },
+    {
+      "id": "retrobowl",
+      "name": "Retro Bowl",
+      "description": "Classic American football with retro pixel graphics. Build your team, call the plays, and win the championship.",
+      "color": "#061a06",
+      "accent": "#22c55e",
+      "highlight": "#ffffff",
+      "tags": ["Sports", "Football", "Retro"]
     }
   ]
 }
