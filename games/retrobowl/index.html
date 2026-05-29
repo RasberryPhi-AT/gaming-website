@@ -8,16 +8,22 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { width: 100%; height: 100%; background: #000; overflow: hidden; }
-    #gameContainer { width: 100%; height: 100%; }
-    canvas { display: block; width: 100%; height: 100%; }
-    #backBtn { position: fixed; top: 16px; left: 16px; z-index: 10000; background: rgba(0,0,0,0.65); color: rgba(255,255,255,0.85); padding: 8px 16px; border-radius: 8px; text-decoration: none; font-family: system-ui, sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.5px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); opacity: 0.55; transition: opacity 0.2s, background 0.2s; }
+    #canvas { display: block; width: 100%; height: 100%; }
+    #backBtn {
+      position: fixed; top: 16px; left: 16px; z-index: 10000;
+      background: rgba(0,0,0,0.65); color: rgba(255,255,255,0.85);
+      padding: 8px 16px; border-radius: 8px; text-decoration: none;
+      font-family: system-ui, sans-serif; font-size: 13px; font-weight: 600;
+      letter-spacing: 0.5px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.12); opacity: 0.55;
+      transition: opacity 0.2s, background 0.2s;
+    }
     #backBtn:hover { opacity: 1; background: rgba(0,0,0,0.85); }
   </style>
 </head>
 <body>
   <a href="/" id="backBtn">← Arcade</a>
-  <div id="gameContainer">
-    <script src="html5game/retrobowl.js"></script>
-  </div>
+  <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+  <script src="html5game/retrobowl.js"></script>
 </body>
 </html>
