@@ -28,6 +28,15 @@
       "tags": ["Idle", "Clicker", "Strategy"]
     },
     {
+      "id": "crossyroad",
+      "name": "Crossy Road",
+      "description": "Hop across busy roads, rivers, and train tracks. How far can you get without getting squished?",
+      "color": "#0a1a0a",
+      "accent": "#f5c842",
+      "highlight": "#ffffff",
+      "tags": ["Arcade", "Endless", "Casual"]
+    },
+    {
       "id": "retrobowl",
       "name": "Retro Bowl",
       "description": "Classic American football with retro pixel graphics. Build your team, call the plays, and win the championship.",

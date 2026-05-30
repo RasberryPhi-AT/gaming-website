@@ -1,0 +1,85 @@
+<!--
+Game Bootstrapper
+
+@author Kasper Mol <kasper@poki.com>
+@copyright Poki 2017
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+
+    <title>Clever | Portal</title>
+    <link rel="icon" href="clever.ico" />
+
+    <div id="introScreen">
+      <h1>hello this is hanson</h1>
+      <p>
+        please do not redistribute this game<br />
+        as i worked very hard on to let people play it but people paid for it so
+        please dont make it unfair,<br />
+        thanks big bro ask me for any game you want to play and i gotchu
+      </p>
+      <button
+        onclick="document.getElementById('introScreen').classList.add('hidden')"
+      >
+        press if you are a good boy
+      </button>
+    </div>
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" async href="app-store-interstitial.css" />
+
+    <script src="scripts/extra.min.js"></script>
+    <script src="poki-sdk.js"></script>
+    <style id="introAutoSkipStyle">
+      #introScreen,
+      #introOverlay {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="/" id="arcadeBack" style="position:fixed;top:16px;left:16px;z-index:10000;background:rgba(0,0,0,0.65);color:rgba(255,255,255,0.85);padding:8px 16px;border-radius:8px;text-decoration:none;font-family:system-ui,sans-serif;font-size:13px;font-weight:600;letter-spacing:0.5px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);opacity:0.55;transition:opacity 0.2s">← Arcade</a>
+    <style>#arcadeBack:hover{opacity:1}</style>
+    <script src="scripts/bootstrap.min.js"></script>
+    <!-- <script src="/js/all.js"></script> -->
+
+    <script id="introAutoSkipScript">
+      (function () {
+        function skipIntro() {
+          var intro =
+            document.getElementById("introScreen") ||
+            document.getElementById("introOverlay");
+          var startButton =
+            document.getElementById("startButton") ||
+            (intro ? intro.querySelector("button") : null);
+          if (startButton && typeof startButton.click === "function") {
+            try {
+              startButton.click();
+            } catch (e) {}
+          }
+          if (intro) {
+            intro.style.display = "none";
+          }
+        }
+
+        if (document.readyState === "complete") {
+          setTimeout(skipIntro, 0);
+        } else {
+          window.addEventListener(
+            "load",
+            function () {
+              setTimeout(skipIntro, 0);
+            },
+            { once: true },
+          );
+        }
+      })();
+    </script>
+  </body>
+</html>
