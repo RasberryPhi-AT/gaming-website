@@ -2,6 +2,7 @@
   "games": [
     {
       "id": "2048",
+      "category": "web",
       "name": "2048",
       "description": "Slide the tiles, combine matching numbers, and reach the 2048 tile. Simple to learn, impossible to put down.",
       "color": "#1a1208",
@@ -11,6 +12,7 @@
     },
     {
       "id": "balatro",
+      "category": "web",
       "name": "Balatro",
       "description": "A roguelike deck-building poker game. Discover powerful Joker combos, play poker hands, and beat every blind.",
       "color": "#120508",
@@ -20,6 +22,7 @@
     },
     {
       "id": "cookieclicker",
+      "category": "web",
       "name": "Cookie Clicker",
       "description": "The legendary idle clicker. Bake cookies, recruit grandmas, and build a cookie empire one click at a time.",
       "color": "#1a0d00",
@@ -29,6 +32,7 @@
     },
     {
       "id": "crossyroad",
+      "category": "web",
       "name": "Crossy Road",
       "description": "Hop across busy roads, rivers, and train tracks. How far can you get without getting squished?",
       "color": "#0a1a0a",
@@ -38,6 +42,7 @@
     },
     {
       "id": "retrobowl",
+      "category": "web",
       "name": "Retro Bowl",
       "description": "Classic American football with retro pixel graphics. Build your team, call the plays, and win the championship.",
       "color": "#061a06",
@@ -47,6 +52,7 @@
     },
     {
       "id": "polytrack",
+      "category": "web",
       "name": "PolyTrack",
       "description": "A low-poly racing game where you build and race on custom tracks. Design your course, then beat your own time.",
       "color": "#1a2040",
@@ -56,12 +62,23 @@
     },
     {
       "id": "roms",
-      "name": "ROMs",
-      "description": "A curated library of classic ROMs. Play retro console games straight in your browser — no downloads needed.",
+      "category": "web",
+      "name": "ROM Library",
+      "description": "A curated browser-based ROM library. Play classic titles straight in your browser — no downloads needed.",
       "color": "#0d0d0d",
       "accent": "#e0e0e0",
       "highlight": "#ffffff",
       "tags": ["Retro", "Classic", "Emulator"]
+    },
+    {
+      "id": "retro",
+      "category": "rom",
+      "name": "Super Mario 64",
+      "description": "The legendary N64 platformer. Help Mario collect Power Stars, explore Peach's castle, and defeat Bowser.",
+      "color": "#12031a",
+      "accent": "#e4000f",
+      "highlight": "#ffd700",
+      "tags": ["N64", "Platformer", "Classic"]
     }
   ]
 }

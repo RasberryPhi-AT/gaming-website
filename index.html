@@ -8,16 +8,26 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:             #07070e;
-      --surface:        #0e0e1c;
-      --card:           #101020;
-      --border:         rgba(140, 120, 255, 0.1);
-      --border-hover:   rgba(140, 120, 255, 0.28);
-      --text:           #ddddf2;
-      --muted:          #6868a0;
-      --accent:         #7c3aed;
-      --accent-glow:    rgba(124, 58, 237, 0.4);
-      --radius:         16px;
+      --bg:           #07070e;
+      --surface:      #0e0e1c;
+      --card:         #101020;
+      --border:       rgba(140, 120, 255, 0.1);
+      --border-hover: rgba(140, 120, 255, 0.28);
+      --text:         #ddddf2;
+      --muted:        #6868a0;
+      --accent:       #7c3aed;
+      --accent-glow:  rgba(124, 58, 237, 0.4);
+      --radius:       16px;
+    }
+
+    body.theme-light {
+      --bg:           #f0f0f8;
+      --surface:      #ffffff;
+      --card:         #ffffff;
+      --border:       rgba(80, 60, 180, 0.1);
+      --border-hover: rgba(80, 60, 180, 0.3);
+      --text:         #1a1a30;
+      --muted:        #6060a0;
     }
 
     html { scroll-behavior: smooth; }
@@ -29,22 +39,21 @@
       min-height: 100vh;
       line-height: 1.6;
       overflow-x: hidden;
+      transition: background 0.25s, color 0.25s;
     }
 
-    /* Subtle grid background */
     body::before {
       content: '';
       position: fixed;
       inset: 0;
       background-image:
-        linear-gradient(rgba(124, 58, 237, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(124, 58, 237, 0.035) 1px, transparent 1px);
+        linear-gradient(rgba(124, 58, 237, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124, 58, 237, 0.03) 1px, transparent 1px);
       background-size: 48px 48px;
       pointer-events: none;
       z-index: 0;
     }
 
-    /* Top ambient glow */
     body::after {
       content: '';
       position: fixed;
@@ -53,54 +62,64 @@
       transform: translateX(-50%);
       width: 900px;
       height: 480px;
-      background: radial-gradient(ellipse, rgba(124, 58, 237, 0.1) 0%, transparent 68%);
+      background: radial-gradient(ellipse, rgba(124, 58, 237, 0.09) 0%, transparent 68%);
       pointer-events: none;
       z-index: 0;
     }
 
-    /* ── Header ── */
+    /* ── Header / Nav ── */
     header {
-      position: relative;
-      z-index: 1;
-      padding: 44px 48px 36px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: color-mix(in srgb, var(--bg) 80%, transparent);
       border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .header-inner {
       max-width: 1200px;
       margin: 0 auto;
+      padding: 0 48px;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      gap: 28px;
     }
 
     .logo {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 6px;
+      gap: 12px;
+      flex-shrink: 0;
+      text-decoration: none;
+      color: inherit;
     }
 
     .logo-mark {
-      width: 40px;
-      height: 40px;
+      width: 34px;
+      height: 34px;
       background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-      border-radius: 10px;
+      border-radius: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 0 20px rgba(124, 58, 237, 0.5);
       flex-shrink: 0;
-      box-shadow: 0 0 28px rgba(124, 58, 237, 0.55);
     }
 
     .logo-mark::after {
       content: '';
-      width: 16px;
-      height: 16px;
+      width: 13px;
+      height: 13px;
       border: 2.5px solid rgba(255,255,255,0.9);
       border-radius: 3px;
       transform: rotate(45deg);
     }
 
     .logo-text {
-      font-size: 26px;
+      font-size: 20px;
       font-weight: 800;
       letter-spacing: 5px;
       background: linear-gradient(135deg, #ffffff 0%, rgba(180, 150, 255, 0.85) 100%);
@@ -110,14 +129,35 @@
       user-select: none;
     }
 
-    .header-sub {
-      color: var(--muted);
-      font-size: 14px;
-      margin-left: 54px;
-      letter-spacing: 0.2px;
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 2px;
     }
 
-    /* ── Main Content ── */
+    .nav-tab {
+      padding: 7px 20px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      transition: color 0.18s, background 0.18s, box-shadow 0.18s;
+      white-space: nowrap;
+    }
+
+    .nav-tab:hover { color: var(--text); background: var(--surface); }
+
+    .nav-tab.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 18px var(--accent-glow);
+    }
+
+    /* ── Main ── */
     main {
       position: relative;
       z-index: 1;
@@ -136,7 +176,6 @@
     .section-title {
       font-size: 18px;
       font-weight: 700;
-      color: var(--text);
       letter-spacing: 0.3px;
     }
 
@@ -151,12 +190,19 @@
       letter-spacing: 0.3px;
     }
 
+    /* ── Views ── */
+    .view { display: none; }
+    .view.active { display: block; }
+
     /* ── Game Grid ── */
     .games-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
       gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
     }
+
+    body.cards-sm .games-grid { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
+    body.cards-lg .games-grid { grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); }
 
     /* ── Game Card ── */
     .game-card {
@@ -178,9 +224,9 @@
       transform: translateY(-7px);
       border-color: var(--border-hover);
       box-shadow:
-        0 28px 56px rgba(0, 0, 0, 0.65),
+        0 28px 56px rgba(0, 0, 0, 0.55),
         0 0 0 1px rgba(140, 120, 255, 0.07),
-        0 0 48px rgba(124, 58, 237, 0.1);
+        0 0 48px rgba(124, 58, 237, 0.08);
     }
 
     /* ── Thumbnail ── */
@@ -191,7 +237,11 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      transition: height 0.2s;
     }
+
+    body.cards-sm .game-thumbnail { height: 130px; }
+    body.cards-lg .game-thumbnail { height: 204px; }
 
     .thumb-glow {
       position: absolute;
@@ -220,8 +270,10 @@
       padding: 0 20px;
       line-height: 1.15;
       text-shadow: 0 2px 24px rgba(0, 0, 0, 0.7);
-      color: var(--g-highlight, #ffffff);
     }
+
+    body.cards-sm .thumb-title { font-size: 24px; }
+    body.cards-lg .thumb-title { font-size: 42px; }
 
     /* ── Play overlay ── */
     .play-overlay {
@@ -253,9 +305,7 @@
       transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .game-card:hover .play-btn {
-      transform: translateY(0) scale(1);
-    }
+    .game-card:hover .play-btn { transform: translateY(0) scale(1); }
 
     /* ── Card body ── */
     .game-info {
@@ -266,10 +316,13 @@
     .game-name {
       font-size: 16px;
       font-weight: 700;
-      color: #fff;
+      color: var(--text);
       margin-bottom: 6px;
       letter-spacing: 0.2px;
     }
+
+    body.font-sm .game-name { font-size: 14px; }
+    body.font-lg .game-name { font-size: 19px; }
 
     .game-desc {
       font-size: 13px;
@@ -281,6 +334,9 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
+
+    body.font-sm .game-desc { font-size: 12px; }
+    body.font-lg .game-desc { font-size: 15px; }
 
     .game-tags {
       display: flex;
@@ -299,7 +355,10 @@
       background: var(--surface);
     }
 
-    /* ── States ── */
+    body.font-sm .tag { font-size: 10px; }
+    body.font-lg .tag { font-size: 13px; }
+
+    /* ── State cells ── */
     .state-cell {
       grid-column: 1 / -1;
       display: flex;
@@ -324,69 +383,291 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
+    /* ── Settings ── */
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .setting-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 24px 22px;
+    }
+
+    .setting-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .setting-options {
+      display: flex;
+      gap: 8px;
+    }
+
+    .setting-btn {
+      flex: 1;
+      padding: 9px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: border-color 0.18s, color 0.18s, background 0.18s, box-shadow 0.18s;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .setting-btn:hover { border-color: var(--border-hover); color: var(--text); }
+
+    .setting-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 14px var(--accent-glow);
+    }
+
+    /* ── Theme toggle ── */
+    .theme-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .toggle-track {
+      width: 48px;
+      height: 26px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      position: relative;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.22s, border-color 0.22s;
+    }
+
+    .toggle-thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 18px;
+      height: 18px;
+      background: var(--muted);
+      border-radius: 50%;
+      transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.22s;
+    }
+
+    body.theme-light .toggle-track  { background: var(--accent); border-color: var(--accent); }
+    body.theme-light .toggle-thumb  { background: #fff; transform: translateX(22px); }
+
+    .toggle-label { font-size: 14px; font-weight: 600; color: var(--text); }
+
     /* ── Responsive ── */
-    @media (max-width: 640px) {
-      header { padding: 28px 20px 22px; }
-      .header-sub { margin-left: 0; margin-top: 4px; }
+    @media (max-width: 700px) {
+      .header-inner { padding: 0 20px; gap: 14px; }
+      .logo-text { display: none; }
       main { padding: 28px 20px 60px; }
-      .games-grid { grid-template-columns: 1fr; }
-      .logo-text { font-size: 22px; letter-spacing: 4px; }
+      .games-grid,
+      body.cards-sm .games-grid,
+      body.cards-lg .games-grid { grid-template-columns: 1fr; }
+      .settings-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
+
   <header>
     <div class="header-inner">
-      <div class="logo">
+      <a class="logo" href="/">
         <div class="logo-mark"></div>
         <span class="logo-text">ARCADE</span>
-      </div>
-      <p class="header-sub">Play games instantly in your browser</p>
+      </a>
+      <nav>
+        <button class="nav-tab" data-tab="web">Web Ports</button>
+        <button class="nav-tab" data-tab="roms">ROMs</button>
+        <button class="nav-tab" data-tab="settings">Settings</button>
+      </nav>
     </div>
   </header>
 
   <main>
-    <div class="section-header">
-      <h2 class="section-title">Games</h2>
-      <span class="game-count" id="gameCount">Loading...</span>
-    </div>
-    <div class="games-grid" id="gamesGrid">
-      <div class="state-cell">
-        <div class="spinner"></div>
-        Loading games…
+
+    <!-- Web Ports -->
+    <div class="view" id="view-web">
+      <div class="section-header">
+        <h2 class="section-title">Web Ports</h2>
+        <span class="game-count" id="webCount">…</span>
+      </div>
+      <div class="games-grid" id="webGrid">
+        <div class="state-cell"><div class="spinner"></div>Loading…</div>
       </div>
     </div>
+
+    <!-- ROMs -->
+    <div class="view" id="view-roms">
+      <div class="section-header">
+        <h2 class="section-title">ROMs</h2>
+        <span class="game-count" id="romCount">…</span>
+      </div>
+      <div class="games-grid" id="romGrid">
+        <div class="state-cell"><div class="spinner"></div>Loading…</div>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="view" id="view-settings">
+      <div class="section-header">
+        <h2 class="section-title">Settings</h2>
+      </div>
+      <div class="settings-grid">
+
+        <div class="setting-card">
+          <div class="setting-label">Theme</div>
+          <div class="theme-row">
+            <div class="toggle-track" id="themeToggle">
+              <div class="toggle-thumb"></div>
+            </div>
+            <span class="toggle-label" id="toggleLabel">Dark</span>
+          </div>
+        </div>
+
+        <div class="setting-card">
+          <div class="setting-label">Font Size</div>
+          <div class="setting-options">
+            <button class="setting-btn" data-setting="font" data-value="font-sm">Small</button>
+            <button class="setting-btn" data-setting="font" data-value="font-md">Medium</button>
+            <button class="setting-btn" data-setting="font" data-value="font-lg">Large</button>
+          </div>
+        </div>
+
+        <div class="setting-card">
+          <div class="setting-label">Card Size</div>
+          <div class="setting-options">
+            <button class="setting-btn" data-setting="cards" data-value="cards-sm">Compact</button>
+            <button class="setting-btn" data-setting="cards" data-value="cards-md">Normal</button>
+            <button class="setting-btn" data-setting="cards" data-value="cards-lg">Large</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </main>
 
   <script>
+    // ── Settings ─────────────────────────────────────────────
+    const DEFAULTS = { theme: 'dark', font: 'font-md', cards: 'cards-md' };
+    const FONT_CLASSES  = ['font-sm', 'font-md', 'font-lg'];
+    const CARDS_CLASSES = ['cards-sm', 'cards-md', 'cards-lg'];
+
+    let settings = { ...DEFAULTS, ...JSON.parse(localStorage.getItem('arcadeSettings') || '{}') };
+
+    function saveSettings() {
+      localStorage.setItem('arcadeSettings', JSON.stringify(settings));
+    }
+
+    function applySettings() {
+      // Theme
+      document.body.classList.toggle('theme-light', settings.theme === 'light');
+      document.getElementById('toggleLabel').textContent = settings.theme === 'light' ? 'Light' : 'Dark';
+
+      // Font
+      FONT_CLASSES.forEach(c => document.body.classList.remove(c));
+      document.body.classList.add(settings.font);
+
+      // Cards
+      CARDS_CLASSES.forEach(c => document.body.classList.remove(c));
+      document.body.classList.add(settings.cards);
+
+      // Sync button active states
+      document.querySelectorAll('.setting-btn').forEach(btn => {
+        const key = btn.dataset.setting;
+        btn.classList.toggle('active', btn.dataset.value === settings[key]);
+      });
+    }
+
+    // Apply immediately before first paint
+    applySettings();
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      settings.theme = settings.theme === 'light' ? 'dark' : 'light';
+      saveSettings();
+      applySettings();
+    });
+
+    document.querySelectorAll('.setting-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        settings[btn.dataset.setting] = btn.dataset.value;
+        saveSettings();
+        applySettings();
+      });
+    });
+
+    // ── Tab navigation ────────────────────────────────────────
+    const tabs  = document.querySelectorAll('.nav-tab');
+    const views = document.querySelectorAll('.view');
+
+    function switchTab(tabId) {
+      tabs.forEach(t  => t.classList.toggle('active', t.dataset.tab === tabId));
+      views.forEach(v => v.classList.toggle('active', v.id === 'view-' + tabId));
+      localStorage.setItem('arcadeTab', tabId);
+    }
+
+    tabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
+
+    // Restore last tab, default to web
+    switchTab(localStorage.getItem('arcadeTab') || 'web');
+
+    // ── Games ─────────────────────────────────────────────────
+    function cardHTML(g) {
+      return `
+        <a class="game-card" href="games/${g.id}/">
+          <div class="game-thumbnail" style="background:${g.color}">
+            <div class="thumb-glow" style="--g-accent:${g.accent}"></div>
+            <div class="thumb-noise"></div>
+            <div class="thumb-title" style="color:${g.highlight || '#fff'}">${g.name}</div>
+            <div class="play-overlay"><div class="play-btn">Play Now</div></div>
+          </div>
+          <div class="game-info">
+            <div class="game-name">${g.name}</div>
+            <div class="game-desc">${g.description}</div>
+            <div class="game-tags">${g.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+          </div>
+        </a>`;
+    }
+
     async function renderGames() {
-      const grid  = document.getElementById('gamesGrid');
-      const count = document.getElementById('gameCount');
-
       try {
-        const res    = await fetch('games/registry.json');
-        const { games } = await res.json();
+        const { games } = await fetch('games/registry.json').then(r => r.json());
 
-        count.textContent = games.length + ' game' + (games.length !== 1 ? 's' : '');
+        const web = games.filter(g => g.category === 'web');
+        const rom = games.filter(g => g.category === 'rom');
 
-        grid.innerHTML = games.map(g => `
-          <a class="game-card" href="games/${g.id}/">
-            <div class="game-thumbnail" style="background:${g.color}">
-              <div class="thumb-glow"  style="--g-accent:${g.accent}"></div>
-              <div class="thumb-noise"></div>
-              <div class="thumb-title" style="color:${g.highlight || '#fff'}">${g.name}</div>
-              <div class="play-overlay"><div class="play-btn">Play Now</div></div>
-            </div>
-            <div class="game-info">
-              <div class="game-name">${g.name}</div>
-              <div class="game-desc">${g.description}</div>
-              <div class="game-tags">${g.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-            </div>
-          </a>`).join('');
+        document.getElementById('webCount').textContent = web.length + ' game' + (web.length !== 1 ? 's' : '');
+        document.getElementById('romCount').textContent = rom.length + ' game' + (rom.length !== 1 ? 's' : '');
+
+        document.getElementById('webGrid').innerHTML = web.length
+          ? web.map(cardHTML).join('')
+          : '<div class="state-cell">No web ports yet.</div>';
+
+        document.getElementById('romGrid').innerHTML = rom.length
+          ? rom.map(cardHTML).join('')
+          : '<div class="state-cell">No ROMs yet.</div>';
 
       } catch (err) {
-        count.textContent = 'Error';
-        grid.innerHTML = `<div class="state-cell">Failed to load games.<br><small style="opacity:.6">${err.message}</small></div>`;
+        const msg = `<div class="state-cell">Failed to load games.<br><small style="opacity:.6">${err.message}</small></div>`;
+        document.getElementById('webGrid').innerHTML = msg;
+        document.getElementById('romGrid').innerHTML = msg;
+        document.getElementById('webCount').textContent = 'Error';
+        document.getElementById('romCount').textContent = 'Error';
         console.error(err);
       }
     }
