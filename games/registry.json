@@ -109,6 +109,17 @@
       "accent": "#e4000f",
       "highlight": "#ffd700",
       "tags": ["N64", "Platformer", "Classic"]
+    },
+    {
+      "id": "mariokart",
+      "category": "rom",
+      "path": "games/retro/mariokart/",
+      "name": "Mario Kart 64",
+      "description": "Race across iconic N64 tracks in the classic kart racer. Choose your driver and battle for first place.",
+      "color": "#0a0a2a",
+      "accent": "#facc15",
+      "highlight": "#ffffff",
+      "tags": ["N64", "Racing", "Multiplayer"]
     }
   ]
 }
