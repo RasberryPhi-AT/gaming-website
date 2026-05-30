@@ -492,7 +492,7 @@
       </a>
       <nav>
         <button class="nav-tab" data-tab="web">Web Ports</button>
-        <button class="nav-tab" data-tab="iframe">iframe</button>
+        <button class="nav-tab" data-tab="iframes">iframes</button>
         <button class="nav-tab" data-tab="roms">ROMs</button>
         <button class="nav-tab" data-tab="settings">Settings</button>
       </nav>
@@ -513,12 +513,12 @@
     </div>
 
     <!-- Iframes -->
-    <div class="view" id="view-iframe">
+    <div class="view" id="view-iframes">
       <div class="section-header">
-        <h2 class="section-title">iframe</h2>
-        <span class="game-count" id="iframeCount">…</span>
+        <h2 class="section-title">iframes</h2>
+        <span class="game-count" id="iframesCount">…</span>
       </div>
-      <div class="games-grid" id="iframeGrid">
+      <div class="games-grid" id="iframesGrid">
         <div class="state-cell"><div class="spinner"></div>Loading…</div>
       </div>
     </div>
@@ -653,21 +653,21 @@
         const { games } = await fetch('games/registry.json').then(r => r.json());
 
         const web    = games.filter(g => g.category === 'web');
-        const iframe = games.filter(g => g.category === 'iframe');
+        const iframes = games.filter(g => g.category === 'iframe');
         const rom    = games.filter(g => g.category === 'rom');
 
         document.getElementById('webCount').textContent    = web.length    + ' game' + (web.length    !== 1 ? 's' : '');
-        document.getElementById('iframeCount').textContent = iframe.length + ' game' + (iframe.length !== 1 ? 's' : '');
+        document.getElementById('iframesCount').textContent = iframes.length + ' game' + (iframes.length !== 1 ? 's' : '');
         document.getElementById('romCount').textContent    = rom.length    + ' game' + (rom.length    !== 1 ? 's' : '');
 
         document.getElementById('webGrid').innerHTML    = web.length    ? web.map(cardHTML).join('')    : '<div class="state-cell">No web ports yet.</div>';
-        document.getElementById('iframeGrid').innerHTML = iframe.length ? iframe.map(cardHTML).join('') : '<div class="state-cell">No iframes yet.</div>';
+        document.getElementById('iframesGrid').innerHTML = iframes.length ? iframes.map(cardHTML).join('') : '<div class="state-cell">No iframes yet.</div>';
         document.getElementById('romGrid').innerHTML    = rom.length    ? rom.map(cardHTML).join('')    : '<div class="state-cell">No ROMs yet.</div>';
 
       } catch (err) {
         const msg = `<div class="state-cell">Failed to load games.<br><small style="opacity:.6">${err.message}</small></div>`;
-        ['webGrid','iframeGrid','romGrid'].forEach(id => document.getElementById(id).innerHTML = msg);
-        ['webCount','iframeCount','romCount'].forEach(id => document.getElementById(id).textContent = 'Error');
+        ['webGrid','iframesGrid','romGrid'].forEach(id => document.getElementById(id).innerHTML = msg);
+        ['webCount','iframesCount','romCount'].forEach(id => document.getElementById(id).textContent = 'Error');
         console.error(err);
       }
     }
