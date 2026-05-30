@@ -3,6 +3,7 @@
     {
       "id": "2048",
       "category": "web",
+      "path": "games/web-port/2048/",
       "name": "2048",
       "description": "Slide the tiles, combine matching numbers, and reach the 2048 tile. Simple to learn, impossible to put down.",
       "color": "#1a1208",
@@ -13,6 +14,7 @@
     {
       "id": "balatro",
       "category": "web",
+      "path": "games/web-port/balatro/",
       "name": "Balatro",
       "description": "A roguelike deck-building poker game. Discover powerful Joker combos, play poker hands, and beat every blind.",
       "color": "#120508",
@@ -23,6 +25,7 @@
     {
       "id": "cookieclicker",
       "category": "web",
+      "path": "games/web-port/cookieclicker/",
       "name": "Cookie Clicker",
       "description": "The legendary idle clicker. Bake cookies, recruit grandmas, and build a cookie empire one click at a time.",
       "color": "#1a0d00",
@@ -31,18 +34,9 @@
       "tags": ["Idle", "Clicker", "Strategy"]
     },
     {
-      "id": "crossyroad",
-      "category": "web",
-      "name": "Crossy Road",
-      "description": "Hop across busy roads, rivers, and train tracks. How far can you get without getting squished?",
-      "color": "#0a1a0a",
-      "accent": "#f5c842",
-      "highlight": "#ffffff",
-      "tags": ["Arcade", "Endless", "Casual"]
-    },
-    {
       "id": "retrobowl",
       "category": "web",
+      "path": "games/web-port/retrobowl/",
       "name": "Retro Bowl",
       "description": "Classic American football with retro pixel graphics. Build your team, call the plays, and win the championship.",
       "color": "#061a06",
@@ -53,6 +47,7 @@
     {
       "id": "polytrack",
       "category": "web",
+      "path": "games/web-port/polytrack/",
       "name": "PolyTrack",
       "description": "A low-poly racing game where you build and race on custom tracks. Design your course, then beat your own time.",
       "color": "#1a2040",
@@ -61,8 +56,20 @@
       "tags": ["Racing", "Building", "Casual"]
     },
     {
+      "id": "crossyroad",
+      "category": "iframe",
+      "path": "games/iframe/crossyroad/",
+      "name": "Crossy Road",
+      "description": "Hop across busy roads, rivers, and train tracks. How far can you get without getting squished?",
+      "color": "#0a1a0a",
+      "accent": "#f5c842",
+      "highlight": "#ffffff",
+      "tags": ["Arcade", "Endless", "Casual"]
+    },
+    {
       "id": "roms",
-      "category": "web",
+      "category": "iframe",
+      "path": "games/iframe/roms/",
       "name": "ROM Library",
       "description": "A curated browser-based ROM library. Play classic titles straight in your browser — no downloads needed.",
       "color": "#0d0d0d",
@@ -71,8 +78,9 @@
       "tags": ["Retro", "Classic", "Emulator"]
     },
     {
-      "id": "retro",
+      "id": "mario64",
       "category": "rom",
+      "path": "games/retro/",
       "name": "Super Mario 64",
       "description": "The legendary N64 platformer. Help Mario collect Power Stars, explore Peach's castle, and defeat Bowser.",
       "color": "#12031a",

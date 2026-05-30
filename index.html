@@ -237,7 +237,6 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      transition: height 0.2s;
     }
 
     body.cards-sm .game-thumbnail { height: 130px; }
@@ -465,15 +464,16 @@
       transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.22s;
     }
 
-    body.theme-light .toggle-track  { background: var(--accent); border-color: var(--accent); }
-    body.theme-light .toggle-thumb  { background: #fff; transform: translateX(22px); }
+    body.theme-light .toggle-track { background: var(--accent); border-color: var(--accent); }
+    body.theme-light .toggle-thumb { background: #fff; transform: translateX(22px); }
 
     .toggle-label { font-size: 14px; font-weight: 600; color: var(--text); }
 
     /* ── Responsive ── */
     @media (max-width: 700px) {
-      .header-inner { padding: 0 20px; gap: 14px; }
+      .header-inner { padding: 0 16px; gap: 10px; }
       .logo-text { display: none; }
+      .nav-tab { padding: 7px 14px; font-size: 12px; }
       main { padding: 28px 20px 60px; }
       .games-grid,
       body.cards-sm .games-grid,
@@ -492,6 +492,7 @@
       </a>
       <nav>
         <button class="nav-tab" data-tab="web">Web Ports</button>
+        <button class="nav-tab" data-tab="iframe">Iframes</button>
         <button class="nav-tab" data-tab="roms">ROMs</button>
         <button class="nav-tab" data-tab="settings">Settings</button>
       </nav>
@@ -507,6 +508,17 @@
         <span class="game-count" id="webCount">…</span>
       </div>
       <div class="games-grid" id="webGrid">
+        <div class="state-cell"><div class="spinner"></div>Loading…</div>
+      </div>
+    </div>
+
+    <!-- Iframes -->
+    <div class="view" id="view-iframe">
+      <div class="section-header">
+        <h2 class="section-title">Iframes</h2>
+        <span class="game-count" id="iframeCount">…</span>
+      </div>
+      <div class="games-grid" id="iframeGrid">
         <div class="state-cell"><div class="spinner"></div>Loading…</div>
       </div>
     </div>
@@ -575,26 +587,20 @@
     }
 
     function applySettings() {
-      // Theme
       document.body.classList.toggle('theme-light', settings.theme === 'light');
       document.getElementById('toggleLabel').textContent = settings.theme === 'light' ? 'Light' : 'Dark';
 
-      // Font
       FONT_CLASSES.forEach(c => document.body.classList.remove(c));
       document.body.classList.add(settings.font);
 
-      // Cards
       CARDS_CLASSES.forEach(c => document.body.classList.remove(c));
       document.body.classList.add(settings.cards);
 
-      // Sync button active states
       document.querySelectorAll('.setting-btn').forEach(btn => {
-        const key = btn.dataset.setting;
-        btn.classList.toggle('active', btn.dataset.value === settings[key]);
+        btn.classList.toggle('active', btn.dataset.value === settings[btn.dataset.setting]);
       });
     }
 
-    // Apply immediately before first paint
     applySettings();
 
     document.getElementById('themeToggle').addEventListener('click', () => {
@@ -622,14 +628,12 @@
     }
 
     tabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
-
-    // Restore last tab, default to web
     switchTab(localStorage.getItem('arcadeTab') || 'web');
 
     // ── Games ─────────────────────────────────────────────────
     function cardHTML(g) {
       return `
-        <a class="game-card" href="games/${g.id}/">
+        <a class="game-card" href="${g.path}">
           <div class="game-thumbnail" style="background:${g.color}">
             <div class="thumb-glow" style="--g-accent:${g.accent}"></div>
             <div class="thumb-noise"></div>
@@ -648,26 +652,22 @@
       try {
         const { games } = await fetch('games/registry.json').then(r => r.json());
 
-        const web = games.filter(g => g.category === 'web');
-        const rom = games.filter(g => g.category === 'rom');
+        const web    = games.filter(g => g.category === 'web');
+        const iframe = games.filter(g => g.category === 'iframe');
+        const rom    = games.filter(g => g.category === 'rom');
 
-        document.getElementById('webCount').textContent = web.length + ' game' + (web.length !== 1 ? 's' : '');
-        document.getElementById('romCount').textContent = rom.length + ' game' + (rom.length !== 1 ? 's' : '');
+        document.getElementById('webCount').textContent    = web.length    + ' game' + (web.length    !== 1 ? 's' : '');
+        document.getElementById('iframeCount').textContent = iframe.length + ' game' + (iframe.length !== 1 ? 's' : '');
+        document.getElementById('romCount').textContent    = rom.length    + ' game' + (rom.length    !== 1 ? 's' : '');
 
-        document.getElementById('webGrid').innerHTML = web.length
-          ? web.map(cardHTML).join('')
-          : '<div class="state-cell">No web ports yet.</div>';
-
-        document.getElementById('romGrid').innerHTML = rom.length
-          ? rom.map(cardHTML).join('')
-          : '<div class="state-cell">No ROMs yet.</div>';
+        document.getElementById('webGrid').innerHTML    = web.length    ? web.map(cardHTML).join('')    : '<div class="state-cell">No web ports yet.</div>';
+        document.getElementById('iframeGrid').innerHTML = iframe.length ? iframe.map(cardHTML).join('') : '<div class="state-cell">No iframes yet.</div>';
+        document.getElementById('romGrid').innerHTML    = rom.length    ? rom.map(cardHTML).join('')    : '<div class="state-cell">No ROMs yet.</div>';
 
       } catch (err) {
         const msg = `<div class="state-cell">Failed to load games.<br><small style="opacity:.6">${err.message}</small></div>`;
-        document.getElementById('webGrid').innerHTML = msg;
-        document.getElementById('romGrid').innerHTML = msg;
-        document.getElementById('webCount').textContent = 'Error';
-        document.getElementById('romCount').textContent = 'Error';
+        ['webGrid','iframeGrid','romGrid'].forEach(id => document.getElementById(id).innerHTML = msg);
+        ['webCount','iframeCount','romCount'].forEach(id => document.getElementById(id).textContent = 'Error');
         console.error(err);
       }
     }
