@@ -1,6 +1,15 @@
 {
   "games": [
     {
+      "id": "2048",
+      "name": "2048",
+      "description": "Slide the tiles, combine matching numbers, and reach the 2048 tile. Simple to learn, impossible to put down.",
+      "color": "#1a1208",
+      "accent": "#f67c5f",
+      "highlight": "#f9f6f2",
+      "tags": ["Puzzle", "Numbers", "Strategy"]
+    },
+    {
       "id": "balatro",
       "name": "Balatro",
       "description": "A roguelike deck-building poker game. Discover powerful Joker combos, play poker hands, and beat every blind.",
