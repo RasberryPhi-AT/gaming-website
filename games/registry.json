@@ -67,6 +67,17 @@
       "tags": ["Arcade", "Endless", "Casual"]
     },
     {
+      "id": "eaglercraft",
+      "category": "iframe",
+      "path": "games/iframe/eaglercraft/",
+      "name": "EaglerCraft 1.5.2",
+      "description": "Minecraft 1.5.2 running entirely in your browser. Build, explore, and survive — no install needed.",
+      "color": "#1a2e1a",
+      "accent": "#5d9e3f",
+      "highlight": "#ffffff",
+      "tags": ["Minecraft", "Sandbox", "Survival"]
+    },
+    {
       "id": "roms",
       "category": "iframe",
       "path": "games/iframe/roms/",
