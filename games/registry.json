@@ -44,6 +44,15 @@
       "accent": "#22c55e",
       "highlight": "#ffffff",
       "tags": ["Sports", "Football", "Retro"]
+    },
+    {
+      "id": "polytrack",
+      "name": "PolyTrack",
+      "description": "A low-poly racing game where you build and race on custom tracks. Design your course, then beat your own time.",
+      "color": "#1a2040",
+      "accent": "#4f6ef7",
+      "highlight": "#ffffff",
+      "tags": ["Racing", "Building", "Casual"]
     }
   ]
 }
