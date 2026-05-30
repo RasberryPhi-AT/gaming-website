@@ -53,6 +53,15 @@
       "accent": "#4f6ef7",
       "highlight": "#ffffff",
       "tags": ["Racing", "Building", "Casual"]
+    },
+    {
+      "id": "roms",
+      "name": "ROMs",
+      "description": "A curated library of classic ROMs. Play retro console games straight in your browser — no downloads needed.",
+      "color": "#0d0d0d",
+      "accent": "#e0e0e0",
+      "highlight": "#ffffff",
+      "tags": ["Retro", "Classic", "Emulator"]
     }
   ]
 }
