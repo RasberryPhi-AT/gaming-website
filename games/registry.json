@@ -67,6 +67,17 @@
       "tags": ["Arcade", "Endless", "Casual"]
     },
     {
+      "id": "slow-roads",
+      "category": "web",
+      "path": "games/web-port/slow-roads/",
+      "name": "Slow Roads",
+      "description": "Endless driving zen in your browser. Pick a landscape and cruise through procedurally generated roads.",
+      "color": "#0a1a10",
+      "accent": "#4ade80",
+      "highlight": "#ffffff",
+      "tags": ["Driving", "Relaxing", "Endless"]
+    },
+    {
       "id": "eaglercraft",
       "category": "iframe",
       "path": "games/iframe/eaglercraft/",
