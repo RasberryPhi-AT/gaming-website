@@ -67,6 +67,17 @@
       "tags": ["Arcade", "Endless", "Casual"]
     },
     {
+      "id": "gdl",
+      "category": "web",
+      "path": "games/web-port/gdl/",
+      "name": "Geometry Dash",
+      "description": "Jump, fly, and flip your way through dangerous passages in this rhythm-based platformer. Don't crash.",
+      "color": "#00060f",
+      "accent": "#0066ff",
+      "highlight": "#ffffff",
+      "tags": ["Platformer", "Rhythm", "Arcade"]
+    },
+    {
       "id": "slow-roads",
       "category": "web",
       "path": "games/web-port/slow-roads/",
