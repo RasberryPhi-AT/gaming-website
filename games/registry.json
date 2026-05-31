@@ -102,13 +102,24 @@
     {
       "id": "mario64",
       "category": "rom",
-      "path": "games/retro/",
+      "path": "games/retro/mario64/",
       "name": "Super Mario 64",
       "description": "The legendary N64 platformer. Help Mario collect Power Stars, explore Peach's castle, and defeat Bowser.",
       "color": "#12031a",
       "accent": "#e4000f",
       "highlight": "#ffd700",
       "tags": ["N64", "Platformer", "Classic"]
+    },
+    {
+      "id": "zelda",
+      "category": "rom",
+      "path": "games/retro/zelda/",
+      "name": "Zelda: A Link to the Past",
+      "description": "The legendary SNES adventure. Guide Link across Hyrule, solve dungeons, and defeat Ganon to save the kingdom.",
+      "color": "#0a1a0a",
+      "accent": "#22c55e",
+      "highlight": "#ffd700",
+      "tags": ["SNES", "Adventure", "Classic"]
     },
     {
       "id": "mariokart",

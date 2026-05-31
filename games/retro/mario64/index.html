@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Super Mario 64</title>
+    <style>
+      body { margin: 0; background: #000; }
+      #game { width: 100vw; height: 100vh; }
+    </style>
+  </head>
+  <body>
+    <a href="/games/retro/" id="arcadeBack" style="position:fixed;top:16px;left:16px;z-index:10000;background:rgba(0,0,0,0.65);color:rgba(255,255,255,0.85);padding:8px 16px;border-radius:8px;text-decoration:none;font-family:system-ui,sans-serif;font-size:13px;font-weight:600;letter-spacing:0.5px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);opacity:0.55;transition:opacity 0.2s">← ROMs</a>
+    <style>#arcadeBack:hover{opacity:1}</style>
+    <div id="game"></div>
+    <script>
+      EJS_player = "#game";
+      EJS_core = "n64";
+      EJS_gameUrl = "../rom_files/mario64.z64";
+      EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+      EJS_saveState = true;
+      EJS_autoSaveState = true;
+    </script>
+    <script src="https://cdn.emulatorjs.org/stable/data/loader.js"></script>
+  </body>
+</html>
