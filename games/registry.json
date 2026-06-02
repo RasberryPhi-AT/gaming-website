@@ -78,6 +78,17 @@
       "tags": ["Platformer", "Rhythm", "Arcade"]
     },
     {
+      "id": "totm",
+      "category": "web",
+      "path": "games/web-port/totm/",
+      "name": "Tomb of the Mask",
+      "description": "Swipe your way through an infinite procedurally generated dungeon. Collect dots, dodge traps, and climb as high as you can.",
+      "color": "#0a0f08",
+      "accent": "#39d353",
+      "highlight": "#ffffff",
+      "tags": ["Arcade", "Mobile", "Endless"]
+    },
+    {
       "id": "slow-roads",
       "category": "web",
       "path": "games/web-port/slow-roads/",
