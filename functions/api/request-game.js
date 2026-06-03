@@ -17,8 +17,11 @@ export async function onRequestPost(context) {
     });
   }
 
+  const dispatchUrl =
+    `https://api.github.com/repos/${context.env.GITHUB_OWNER}/${context.env.GITHUB_REPO}/dispatches`;
+
   const response = await fetch(
-    "https://api.github.com/repos/RasberryPhi-AT/gaming-website/dispatches",
+    dispatchUrl,
     {
       method: "POST",
       headers: {
