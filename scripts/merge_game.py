@@ -7,7 +7,7 @@ from duckduckgo_search import DDGS
 
 # ── 1. Parse event payload ────────────────────────────────────────────────────
 
-payload   = json.loads(os.environ["GITHUB_EVENT_PAYLOAD"])
+payload   = json.loads(os.environ["DISPATCH_EVENT_PAYLOAD"])
 game_name = payload["client_payload"]["gameName"]
 slug      = game_name.lower().replace(" ", "-")
 
