@@ -111,6 +111,17 @@
       "tags": ["Minecraft", "Sandbox", "Survival"]
     },
     {
+      "id": "celeste",
+      "category": "web",
+      "path": "games/web-port/celeste/",
+      "name": "Celeste Classic",
+      "description": "The original PICO-8 prototype that started it all. Climb the mountain, dodge spikes, and don't give up.",
+      "color": "#0d0010",
+      "accent": "#ff77aa",
+      "highlight": "#ffffff",
+      "tags": ["Platformer", "Indie", "Hard"]
+    },
+    {
       "id": "mindustry",
       "category": "web",
       "path": "games/web-port/mindustry/",
