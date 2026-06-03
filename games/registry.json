@@ -111,6 +111,17 @@
       "tags": ["Minecraft", "Sandbox", "Survival"]
     },
     {
+      "id": "diablo",
+      "category": "web",
+      "path": "games/web-port/diablo/",
+      "name": "Diablo",
+      "description": "An isometric JavaScript demake of Diablo. Fight monsters, explore dungeons, and descend deeper into darkness.",
+      "color": "#0d0000",
+      "accent": "#8b0000",
+      "highlight": "#c8a96e",
+      "tags": ["RPG", "Dungeon", "Action"]
+    },
+    {
       "id": "pixeldungeon",
       "category": "web",
       "path": "games/web-port/pixeldungeon/",

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  background: black;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+canvas {
+  display: block;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+#arcadeBack {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 10000;
+  background: rgba(0,0,0,0.65);
+  color: rgba(255,255,255,0.85);
+  padding: 8px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-family: system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.12);
+  opacity: 0.55;
+  transition: opacity 0.2s;
+}
+#arcadeBack:hover { opacity: 1; }
+</style>
+</head>
+<body>
+  <a href="/" id="arcadeBack">← Arcade</a>
+  <canvas id="floor" width="980" height="661"></canvas>
+  <script src="diablo.js"></script>
+</body>
+</html>
