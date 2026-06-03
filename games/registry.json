@@ -111,6 +111,39 @@
       "tags": ["Minecraft", "Sandbox", "Survival"]
     },
     {
+      "id": "adarkroom",
+      "category": "web",
+      "path": "games/web-port/adarkroom/",
+      "name": "A Dark Room",
+      "description": "A minimalist text adventure that starts with a cold, dark room and grows into something much stranger. Light the fire.",
+      "color": "#0a0800",
+      "accent": "#c8a84b",
+      "highlight": "#f0e6c8",
+      "tags": ["Text", "Adventure", "Idle"]
+    },
+    {
+      "id": "wordle",
+      "category": "web",
+      "path": "games/web-port/wordle/build/",
+      "name": "Wordle",
+      "description": "Guess the hidden five-letter word in six tries. A new puzzle every day — share your results without spoilers.",
+      "color": "#0a0a0a",
+      "accent": "#6aaa64",
+      "highlight": "#ffffff",
+      "tags": ["Word", "Puzzle", "Daily"]
+    },
+    {
+      "id": "candybox2",
+      "category": "web",
+      "path": "games/web-port/candybox2/",
+      "name": "Candy Box 2",
+      "description": "Eat candies, throw lollipops, explore dungeons. An ASCII-art RPG that grows from nothing into an entire world.",
+      "color": "#0d0005",
+      "accent": "#ff69b4",
+      "highlight": "#ffffff",
+      "tags": ["Text", "RPG", "Idle"]
+    },
+    {
       "id": "celeste",
       "category": "web",
       "path": "games/web-port/celeste/",
