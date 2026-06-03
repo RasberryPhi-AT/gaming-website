@@ -77,7 +77,7 @@ function circleSimplexNoise1D(simplex, theta) {
 }
 
 // Load the simplex-noise library
-loadScript("https://cdnjs.cloudflare.com/ajax/libs/simplex-noise/2.4.0/simplex-noise.min.js");
+loadScript("/games/web-port/sandboxels/scripts/simplex-noise.min.js");
 
 function getRandomElement(layer) {
 	if (!layer || layer.length === 0) {

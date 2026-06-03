@@ -2568,7 +2568,7 @@ globals.loadingLogged = false;
 async function getWordList() {
     if (globals.cachedWords) return globals.cachedWords;
     try {
-        const response = await fetch("https://raw.githubusercontent.com/first20hours/google-10000-english/refs/heads/master/google-10000-english-no-swears.txt");
+        const response = await fetch("/games/web-port/sandboxels/scripts/words-common.txt");
         if (!response.ok) throw new Error('Network error');
         const text = await response.text();
         globals.cachedWords = text.split("\n");
@@ -2583,7 +2583,7 @@ async function getWordList() {
 async function getCleanWordList() {
     if (globals.otherCachedWords) return globals.otherCachedWords;
     try {
-        const response = await fetch("https://raw.githubusercontent.com/dwyl/english-words/refs/heads/master/words.txt");
+        const response = await fetch("/games/web-port/sandboxels/scripts/words-all.txt");
         if (!response.ok) throw new Error('Network error');
         const text = await response.text();
         globals.otherCachedWords = text.split("\n");

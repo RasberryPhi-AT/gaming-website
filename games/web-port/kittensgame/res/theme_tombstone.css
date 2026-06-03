@@ -1,12 +1,10 @@
-/* ************************************************************ */
-/* ***	       Tombstone 1.0.0 Theme © Volkeyrn             *** */
+﻿/* ************************************************************ */
+/* ***	       Tombstone 1.0.0 Theme Â© Volkeyrn             *** */
 /* ************************************************************ */
 
 /* ************* */
 /* *** FONTS *** */
 /* ************* */
-@import url(https://fonts.googleapis.com/css?family=Inter:wght@400,700&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Roboto:wght@400,700&display=swap);
 
 /* ******************************************** */
 /* ******************* GAME ******************* */
@@ -841,11 +839,11 @@
 	border: 1px solid #aaaaaa;
 	padding: 0 5px;
 }
-.scheme_tombstone .container .name.variety-tabby { /* tigré  ou rayé */
+.scheme_tombstone .container .name.variety-tabby { /* tigrÃ©  ou rayÃ© */
 	border: 1px dashed #aaaaaa;
 	padding: 0 5px;
 }
-.scheme_tombstone .container .name.variety-torbie { /* marbré strié */
+.scheme_tombstone .container .name.variety-torbie { /* marbrÃ© striÃ© */
 	border: 1px dashed #d3d4d3;
 	border-left: dotted #ab9f8c;
 	border-right: dotted #ab9f8c;
@@ -857,7 +855,7 @@
 	border-bottom-color: #d5906c;
 	padding: 0 5px;
 }
-.scheme_tombstone .container .name.variety-spots { /* tacheté */
+.scheme_tombstone .container .name.variety-spots { /* tachetÃ© */
 	border: 1px dotted #c49474;
 	padding: 0 5px;
 }

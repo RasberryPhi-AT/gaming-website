@@ -1,5 +1,5 @@
-/* ******************************************************** */
-/* ***			Arctic 1.00 Theme © Volkeyrn            *** */
+﻿/* ******************************************************** */
+/* ***			Arctic 1.00 Theme Â© Volkeyrn            *** */
 /* ******************************************************** */
 
 /* *********************************** */
@@ -18,7 +18,6 @@
 /* ************* */
 /* *** FONTS *** */
 /* ************* */
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:wght@300,400,700&display=swap);
 
 /* ******************************************** */
 /* ******************* GAME ******************* */
@@ -872,10 +871,10 @@ body.scheme_arctic.with_background_image {
 .scheme_arctic .container .name.variety-dual { /* bicolore */
 	border: 1px solid grey;
 }
-.scheme_arctic .container .name.variety-tabby { /* tigré  ou rayé */
+.scheme_arctic .container .name.variety-tabby { /* tigrÃ©  ou rayÃ© */
 	border: 1px dashed grey;
 }
-.scheme_arctic .container .name.variety-torbie { /* marbré strié */
+.scheme_arctic .container .name.variety-torbie { /* marbrÃ© striÃ© */
 	border: 1px dashed grey;
 	border-left: dotted;
 	border-right: dotted;
@@ -885,7 +884,7 @@ body.scheme_arctic.with_background_image {
 	border-top-color: saddlebrown;
 	border-bottom-color: peru;
 }
-.scheme_arctic .container .name.variety-spots { /* tacheté */
+.scheme_arctic .container .name.variety-spots { /* tachetÃ© */
 	border: 1px dotted grey;
 }
 .scheme_arctic .btn.modern a.bld-on,

@@ -1,10 +1,7 @@
-/* ******************************************************** */
-/* ***			Oil 1.0.1 Theme © Volkeyrn              *** */
+﻿/* ******************************************************** */
+/* ***			Oil 1.0.1 Theme Â© Volkeyrn              *** */
 /* ******************************************************** */
 
-@import url(https://fonts.googleapis.com/css?family=Asap:ital,wght@400,600,700,400italic,600italic,700italic&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Asap+Condensed:ital,wght@400,600,700,400italic,600italic,700italic&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:ital,wght@300,400,700,300italic,400italic,700italic&display=swap);
 
 /**********************************************/
 /******************** GAME ********************/
@@ -681,10 +678,10 @@ body.scheme_oil,
 .scheme_oil .container .name.variety-dual { /* bicolore */
 	border: 1px solid grey;
 }
-.scheme_oil .container .name.variety-tabby { /* tigré  ou rayé*/
+.scheme_oil .container .name.variety-tabby { /* tigrÃ©  ou rayÃ©*/
 	border: 1px dashed grey;
 }
-.scheme_oil .container .name.variety-torbie { /* marbré strié */
+.scheme_oil .container .name.variety-torbie { /* marbrÃ© striÃ© */
 	border: 1px dashed grey;
 	border-left: dotted;
 	border-right: dotted;
@@ -694,7 +691,7 @@ body.scheme_oil,
 	border-top-color: burlywood;
 	border-bottom-color: burlywood;
 }
-.scheme_oil .container .name.variety-spots { /* tacheté */
+.scheme_oil .container .name.variety-spots { /* tachetÃ© */
 	border: 1px dotted grey;
 }
 .scheme_oil .btn.modern a.bld-on,

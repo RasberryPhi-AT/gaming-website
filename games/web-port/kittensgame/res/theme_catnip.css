@@ -1,12 +1,10 @@
-/* ************************************************************ */
-/* ***			Catnip 1.0.0 Theme © Volkeyrn               *** */
+﻿/* ************************************************************ */
+/* ***			Catnip 1.0.0 Theme Â© Volkeyrn               *** */
 /* ************************************************************ */
 
 /* ************* */
 /* *** FONTS *** */
 /* ************* */
-@import url(https://fonts.googleapis.com/css?family=Delius&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:ital,wght@300,400,700,300italic,400italic,700italic&display=swap);
 
 /* source of images for graphic design */
 /* *********************************** */
@@ -820,11 +818,11 @@ body.scheme_catnip {
 	border: 1px solid #aaaaaa;
 	padding: 0 5px;
 }
-.scheme_catnip .container .name.variety-tabby { /* tigré  ou rayé */
+.scheme_catnip .container .name.variety-tabby { /* tigrÃ©  ou rayÃ© */
 	border: 1px dashed #aaaaaa;
 	padding: 0 5px;
 }
-.scheme_catnip .container .name.variety-torbie { /* marbré strié */
+.scheme_catnip .container .name.variety-torbie { /* marbrÃ© striÃ© */
 	border: 1px dashed #d3d4d3;
 	border-left: dotted #ab9f8c;
 	border-right: dotted #ab9f8c;
@@ -836,7 +834,7 @@ body.scheme_catnip {
 	border-bottom-color: #d5906c;
 	padding: 0 5px;
 }
-.scheme_catnip .container .name.variety-spots { /* tacheté */
+.scheme_catnip .container .name.variety-spots { /* tachetÃ© */
 	border: 1px dotted #c49474;
 	padding: 0 5px;
 }

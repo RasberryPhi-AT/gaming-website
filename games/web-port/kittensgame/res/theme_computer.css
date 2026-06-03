@@ -1,8 +1,7 @@
-/* ******************************************************** */
-/* ***			Computer 1.0.0 Theme © Volkeyrn         *** */
+﻿/* ******************************************************** */
+/* ***			Computer 1.0.0 Theme Â© Volkeyrn         *** */
 /* ******************************************************** */
 
-@import url(https://fonts.googleapis.com/css?family=Ubuntu:ital,wght@300,400,700,300italic,400italic,700italic&display=swap);
 
 /* ******************************************** */
 /* ******************* GAME ******************* */
@@ -793,13 +792,13 @@ body.scheme_computer {
 .scheme_computer .container .census-block.simLeader .name.variety-dual {
 	border-color: black;
 }
-.scheme_computer .container .name.variety-tabby { /* tigré  ou rayé */
+.scheme_computer .container .name.variety-tabby { /* tigrÃ©  ou rayÃ© */
 	border: 1px dashed grey;
 }
 .scheme_computer .container .census-block.simLeader .name.variety-tabby {
 	border-color: black;
 }
-.scheme_computer .container .name.variety-torbie { /* marbré strié */
+.scheme_computer .container .name.variety-torbie { /* marbrÃ© striÃ© */
 	border: 1px dashed grey;
 	border-left: dotted;
 	border-right: dotted;
@@ -817,7 +816,7 @@ body.scheme_computer {
 	border-top-color: saddlebrown;
 	border-bottom-color: saddlebrown;
 }
-.scheme_computer .container .name.variety-spots { /* tacheté */
+.scheme_computer .container .name.variety-spots { /* tachetÃ© */
 	border: 1px dotted grey;
 }
 .scheme_computer .container .census-block.simLeader .name.variety-spots {

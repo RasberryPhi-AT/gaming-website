@@ -1,8 +1,7 @@
-/* ******************************************************** */
-/* ***			Black 1.0.2 Theme © Volkeyrn            *** */
+﻿/* ******************************************************** */
+/* ***			Black 1.0.2 Theme Â© Volkeyrn            *** */
 /* ******************************************************** */
 
-@import url(https://fonts.googleapis.com/css?family=Asap:ital,wght@400,600,700,400italic,600italic,700italic&display=swap);
 
 /* ******************************************** */
 /* ******************* GAME ******************* */
@@ -741,10 +740,10 @@ body.scheme_black {
 .scheme_black .container .name.variety-dual { /* bicolore */
 	border: 1px solid grey;
 }
-.scheme_black .container .name.variety-tabby { /* tigré  ou rayé*/
+.scheme_black .container .name.variety-tabby { /* tigrÃ©  ou rayÃ©*/
 	border: 1px dashed grey;
 }
-.scheme_black .container .name.variety-torbie { /* marbré strié */
+.scheme_black .container .name.variety-torbie { /* marbrÃ© striÃ© */
 	border: 1px dashed grey;
 	border-left: dotted;
 	border-right: dotted;
@@ -754,7 +753,7 @@ body.scheme_black {
 	border-top-color: burlywood;
 	border-bottom-color: burlywood;
 }
-.scheme_black .container .name.variety-spots { /* tacheté */
+.scheme_black .container .name.variety-spots { /* tachetÃ© */
 	border: 1px dotted grey;
 }
 .scheme_black .btn.modern a.bld-on,

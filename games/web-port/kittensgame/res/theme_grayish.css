@@ -1,9 +1,7 @@
-/* ************************************************************* */
-/* ***			Grayish 1.0.0 Theme © Volkeyrn               *** */
+﻿/* ************************************************************* */
+/* ***			Grayish 1.0.0 Theme Â© Volkeyrn               *** */
 /* ************************************************************* */
 
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:ital,wght@300,400,600,700,300italic,400italic,600italic,700italic,&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Cabin:ital,wght@400,600,700,400italic,600italic,700italic,&display=swap);
 
 /* ******************************************** */
 /* ******************* GAME ******************* */
@@ -828,10 +826,10 @@ body.scheme_grayish {
 .scheme_grayish .container .name.variety-dual { /* bicolore */
 	border: 1px solid grey;
 }
-.scheme_grayish .container .name.variety-tabby { /* tigré  ou rayé */
+.scheme_grayish .container .name.variety-tabby { /* tigrÃ©  ou rayÃ© */
 	border: 1px dashed grey;
 }
-.scheme_grayish .container .name.variety-torbie { /* marbré strié */
+.scheme_grayish .container .name.variety-torbie { /* marbrÃ© striÃ© */
 	border: 1px dashed grey;
 	border-left: dotted;
 	border-right: dotted;
@@ -841,7 +839,7 @@ body.scheme_grayish {
 	border-top-color: saddlebrown;
 	border-bottom-color: peru;
 }
-.scheme_grayish .container .name.variety-spots { /* tacheté */
+.scheme_grayish .container .name.variety-spots { /* tachetÃ© */
 	border: 1px dotted grey;
 }
 .scheme_grayish .btn.modern a.bld-on,

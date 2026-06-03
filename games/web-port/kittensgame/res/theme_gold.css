@@ -1,8 +1,7 @@
-/* ******************************************************** */
-/* ***			Gold 1.2.0 Theme © Volkeyrn             *** */
+﻿/* ******************************************************** */
+/* ***			Gold 1.2.0 Theme Â© Volkeyrn             *** */
 /* ******************************************************** */
 
-@import url(https://fonts.googleapis.com/css?family=PT+Sans:ital,wght@400,400italic,700&display=swap);
 
 /**********************************************/
 /******************** GAME ********************/
@@ -657,10 +656,10 @@ body.scheme_gold {
 .scheme_gold .container .name.variety-dual { /* bicolore */
 	border: 1px solid grey;
 }
-.scheme_gold .container .name.variety-tabby { /* tigré  ou rayé*/
+.scheme_gold .container .name.variety-tabby { /* tigrÃ©  ou rayÃ©*/
 	border: 1px dashed grey;
 }
-.scheme_gold .container .name.variety-torbie { /* marbré strié */
+.scheme_gold .container .name.variety-torbie { /* marbrÃ© striÃ© */
 	border: 1px dashed grey;
 	border-left: dotted;
 	border-right: dotted;
@@ -670,7 +669,7 @@ body.scheme_gold {
 	border-top-color: burlywood;
 	border-bottom-color: burlywood;
 }
-.scheme_gold .container .name.variety-spots { /* tacheté */
+.scheme_gold .container .name.variety-spots { /* tachetÃ© */
 	border: 1px dotted grey;
 }
 .scheme_gold .btn.modern a.bld-off,

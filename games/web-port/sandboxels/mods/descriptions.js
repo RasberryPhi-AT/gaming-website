@@ -1,4 +1,3 @@
-fetch("https://eoynkne6jon7kld.m.pipedream.net/descriptions-analytics").catch(_=>{});
 console.log("descriptions.js: Loading vanilla descriptions...");
 fetch (
   "https://mollthecoder.github.io/Sandboxels-Descriptions/descriptions/vanilla.json", 

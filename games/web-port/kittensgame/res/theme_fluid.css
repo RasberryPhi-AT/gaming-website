@@ -1,9 +1,8 @@
-/* ******************************************************** */
-/* ***			Fluid 1.1.0 Theme © Volkeyrn            *** */
+﻿/* ******************************************************** */
+/* ***			Fluid 1.1.0 Theme Â© Volkeyrn            *** */
 /* ******************************************************** */
 
- @import url(https://fonts.googleapis.com/css?family=Lato:ital,wght@300,400,400italic,700,700italic&display=swap);
-
+ 
 /**********************************************/
 /******************** GAME ********************/
 /**********************************************/
@@ -675,10 +674,10 @@ body.scheme_fluid,
 .scheme_fluid .container .name.variety-dual { /* bicolore */
 	border: 1px solid grey;
 }
-.scheme_fluid .container .name.variety-tabby { /* tigré  ou rayé*/
+.scheme_fluid .container .name.variety-tabby { /* tigrÃ©  ou rayÃ©*/
 	border: 1px dashed grey;
 }
-.scheme_fluid .container .name.variety-torbie { /* marbré strié */
+.scheme_fluid .container .name.variety-torbie { /* marbrÃ© striÃ© */
 	border: 1px dashed grey;
 	border-left: dotted;
 	border-right: dotted;
@@ -688,7 +687,7 @@ body.scheme_fluid,
 	border-top-color: burlywood;
 	border-bottom-color: burlywood;
 }
-.scheme_fluid .container .name.variety-spots { /* tacheté */
+.scheme_fluid .container .name.variety-spots { /* tachetÃ© */
 	border: 1px dotted grey;
 }
 .scheme_fluid .btn.modern a.bld-on,

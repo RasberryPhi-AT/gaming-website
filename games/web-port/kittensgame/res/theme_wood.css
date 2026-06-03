@@ -1,5 +1,5 @@
-/* ******************************************************** */
-/* ***		   	Wood 2.0.3 Theme © Volkeyrn             *** */
+﻿/* ******************************************************** */
+/* ***		   	Wood 2.0.3 Theme Â© Volkeyrn             *** */
 /* ******************************************************** */
 
 /* *********************************** */
@@ -20,7 +20,6 @@
 /* ************* */
 /* *** FONTS *** */
 /* ************* */
-@import url(https://fonts.googleapis.com/css?family=Sansita:ital,wght@400,700,400italic,700italic&display=swap);
 
 /* ******************************************** */
 /* ******************* GAME ******************* */
@@ -972,10 +971,10 @@ body.scheme_wood.with_background_image {
 .scheme_wood .container .name.variety-dual { /* bicolore */
 	border: 1px solid grey;
 }
-.scheme_wood .container .name.variety-tabby { /* tigré  ou rayé*/
+.scheme_wood .container .name.variety-tabby { /* tigrÃ©  ou rayÃ©*/
 	border: 1px dashed grey;
 }
-.scheme_wood .container .name.variety-torbie { /* marbré strié */
+.scheme_wood .container .name.variety-torbie { /* marbrÃ© striÃ© */
 	border: 1px dashed grey;
 	border-left: dotted;
 	border-right: dotted;
@@ -985,7 +984,7 @@ body.scheme_wood.with_background_image {
 	border-top-color: burlywood;
 	border-bottom-color: burlywood;
 }
-.scheme_wood .container .name.variety-spots { /* tacheté */
+.scheme_wood .container .name.variety-spots { /* tachetÃ© */
 	border: 1px dotted grey;
 }
 .scheme_wood .btn.modern a.bld-on,

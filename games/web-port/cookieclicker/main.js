@@ -169,8 +169,7 @@ var ajax=function(url,callback)
 	return true;
 }
 
-var DataDir='';//'//orteil.dashnet.org/data/';
-DataDir='https://orteil.dashnet.org/data/';
+var DataDir='';
 
 var getJson=function(url,callback,error)
 {
