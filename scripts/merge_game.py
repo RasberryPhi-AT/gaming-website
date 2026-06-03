@@ -22,6 +22,23 @@ PALETTES = [
     {"color": "#0a0005", "accent": "#a855f7", "highlight": "#e9d5ff"},
 ]
 
+REQUEST_LOG = "games/request-log.json"
+
+
+def append_log(game_name, status, reason=""):
+    """Append a result entry to games/request-log.json for the frontend banner."""
+    log = []
+    if os.path.exists(REQUEST_LOG):
+        with open(REQUEST_LOG, "r", encoding="utf-8") as f:
+            try:
+                log = json.load(f)
+            except json.JSONDecodeError:
+                pass
+    log.append({"gameName": game_name, "status": status, "reason": reason})
+    with open(REQUEST_LOG, "w", encoding="utf-8") as f:
+        json.dump(log, f, indent=2)
+
+
 # ── 1. Parse incoming event payload ──────────────────────────────────────────
 #
 # The workflow passes the dispatch event as DISPATCH_EVENT_PAYLOAD because
@@ -74,6 +91,7 @@ print(f"[merge_game] zip_url={zip_url!r}")
 
 if zip_url == "FAILED":
     print("[merge_game] No downloadable zip found. Exiting.")
+    append_log(game_name, "failed", "No downloadable open-source zip found online.")
     raise SystemExit(0)
 
 # ── 5. Download archive and extract into games/<slug>/ ───────────────────────
@@ -82,13 +100,24 @@ archive_path = f"/tmp/{slug}.zip"
 extract_dir  = f"games/{slug}"
 
 print(f"[merge_game] downloading → {archive_path}")
-urllib.request.urlretrieve(zip_url, archive_path)
+try:
+    urllib.request.urlretrieve(zip_url, archive_path)
+except Exception as exc:
+    print(f"[merge_game] download failed: {exc}")
+    append_log(game_name, "failed", f"Download error: {exc}")
+    raise SystemExit(1)
 
 os.makedirs(extract_dir, exist_ok=True)
 
 print(f"[merge_game] extracting → {extract_dir}/")
-with zipfile.ZipFile(archive_path, "r") as zf:
-    zf.extractall(extract_dir)
+try:
+    with zipfile.ZipFile(archive_path, "r") as zf:
+        zf.extractall(extract_dir)
+except zipfile.BadZipFile:
+    print("[merge_game] Downloaded file is not a valid zip archive.")
+    os.remove(archive_path)
+    append_log(game_name, "failed", "URL did not point to a valid zip archive.")
+    raise SystemExit(1)
 
 os.remove(archive_path)
 
@@ -167,4 +196,5 @@ except json.JSONDecodeError as exc:
 with open(registry_path, "w", encoding="utf-8") as f:
     f.write(updated_json)
 
+append_log(game_name, "success", "web")
 print(f"[merge_game] done — {game_name!r} written to registry (id={game_id})")
