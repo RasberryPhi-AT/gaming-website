@@ -111,6 +111,39 @@
       "tags": ["Minecraft", "Sandbox", "Survival"]
     },
     {
+      "id": "kittensgame",
+      "category": "web",
+      "path": "games/web-port/kittensgame/",
+      "name": "Kittens Game",
+      "description": "A dark and complex city-builder idle game. Manage a village of kittens, research technology, and survive the ages.",
+      "color": "#0a0d08",
+      "accent": "#ff8c42",
+      "highlight": "#ffffff",
+      "tags": ["Idle", "Strategy", "City Builder"]
+    },
+    {
+      "id": "sandboxels",
+      "category": "web",
+      "path": "games/web-port/sandboxels/",
+      "name": "Sandboxels",
+      "description": "Experiment with over 500 materials in a falling sand simulator. Mix chemicals, start fires, and watch reactions unfold.",
+      "color": "#0a0a0a",
+      "accent": "#e8a020",
+      "highlight": "#ffffff",
+      "tags": ["Sandbox", "Simulation", "Physics"]
+    },
+    {
+      "id": "untrusted",
+      "category": "web",
+      "path": "games/web-port/untrusted/",
+      "name": "Untrusted",
+      "description": "A JavaScript puzzle game where you hack the game's own source code to escape each level. Meta, clever, and addictive.",
+      "color": "#000a00",
+      "accent": "#00ff41",
+      "highlight": "#00ff41",
+      "tags": ["Puzzle", "Programming", "Hacking"]
+    },
+    {
       "id": "doom",
       "category": "web",
       "path": "games/web-port/doom/",
