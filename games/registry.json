@@ -124,7 +124,7 @@
     {
       "id": "mindustry",
       "category": "web",
-      "path": "games/web-port/mindustry/",
+      "path": "games/web-port/mindustry/web/",
       "name": "Mindustry",
       "description": "A factory-building tower defense game. Mine resources, build supply chains, and defend your base from waves of enemies.",
       "color": "#0a0f14",
