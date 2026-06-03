@@ -9,7 +9,11 @@
       "color": "#1a1208",
       "accent": "#f67c5f",
       "highlight": "#f9f6f2",
-      "tags": ["Puzzle", "Numbers", "Strategy"]
+      "tags": [
+        "Puzzle",
+        "Numbers",
+        "Strategy"
+      ]
     },
     {
       "id": "balatro",
@@ -20,7 +24,11 @@
       "color": "#120508",
       "accent": "#c41230",
       "highlight": "#ffd700",
-      "tags": ["Card Game", "Roguelike", "Strategy"]
+      "tags": [
+        "Card Game",
+        "Roguelike",
+        "Strategy"
+      ]
     },
     {
       "id": "cookieclicker",
@@ -31,7 +39,11 @@
       "color": "#1a0d00",
       "accent": "#c8722a",
       "highlight": "#fff8dc",
-      "tags": ["Idle", "Clicker", "Strategy"]
+      "tags": [
+        "Idle",
+        "Clicker",
+        "Strategy"
+      ]
     },
     {
       "id": "retrobowl",
@@ -42,7 +54,11 @@
       "color": "#061a06",
       "accent": "#22c55e",
       "highlight": "#ffffff",
-      "tags": ["Sports", "Football", "Retro"]
+      "tags": [
+        "Sports",
+        "Football",
+        "Retro"
+      ]
     },
     {
       "id": "polytrack",
@@ -53,18 +69,11 @@
       "color": "#1a2040",
       "accent": "#4f6ef7",
       "highlight": "#ffffff",
-      "tags": ["Racing", "Building", "Casual"]
-    },
-    {
-      "id": "crossyroad",
-      "category": "iframe",
-      "path": "games/iframe/crossyroad/",
-      "name": "Crossy Road",
-      "description": "Hop across busy roads, rivers, and train tracks. How far can you get without getting squished?",
-      "color": "#0a1a0a",
-      "accent": "#f5c842",
-      "highlight": "#ffffff",
-      "tags": ["Arcade", "Endless", "Casual"]
+      "tags": [
+        "Racing",
+        "Building",
+        "Casual"
+      ]
     },
     {
       "id": "gdl",
@@ -75,7 +84,11 @@
       "color": "#00060f",
       "accent": "#0066ff",
       "highlight": "#ffffff",
-      "tags": ["Platformer", "Rhythm", "Arcade"]
+      "tags": [
+        "Platformer",
+        "Rhythm",
+        "Arcade"
+      ]
     },
     {
       "id": "totm",
@@ -86,7 +99,11 @@
       "color": "#0a0f08",
       "accent": "#39d353",
       "highlight": "#ffffff",
-      "tags": ["Arcade", "Mobile", "Endless"]
+      "tags": [
+        "Arcade",
+        "Mobile",
+        "Endless"
+      ]
     },
     {
       "id": "slow-roads",
@@ -97,18 +114,26 @@
       "color": "#0a1a10",
       "accent": "#4ade80",
       "highlight": "#ffffff",
-      "tags": ["Driving", "Relaxing", "Endless"]
+      "tags": [
+        "Driving",
+        "Relaxing",
+        "Endless"
+      ]
     },
     {
       "id": "eaglercraft",
       "category": "web",
       "path": "games/web-port/Eaglercraft/",
       "name": "EaglerCraft 1.8",
-      "description": "Minecraft 1.8 running entirely in your browser via WASM. Build, explore, and survive — no install needed.",
+      "description": "Minecraft 1.8 running entirely in your browser via WASM. Build, explore, and survive \u00e2\u20ac\u201d no install needed.",
       "color": "#1a2e1a",
       "accent": "#5d9e3f",
       "highlight": "#ffffff",
-      "tags": ["Minecraft", "Sandbox", "Survival"]
+      "tags": [
+        "Minecraft",
+        "Sandbox",
+        "Survival"
+      ]
     },
     {
       "id": "tanuki",
@@ -119,7 +144,11 @@
       "color": "#231F20",
       "accent": "#ff7c2a",
       "highlight": "#ffe0b0",
-      "tags": ["Casual", "Skateboarding", "Chill"]
+      "tags": [
+        "Casual",
+        "Skateboarding",
+        "Chill"
+      ]
     },
     {
       "id": "hexgl",
@@ -130,7 +159,11 @@
       "color": "#000a1a",
       "accent": "#00cfff",
       "highlight": "#ffffff",
-      "tags": ["Racing", "WebGL", "3D"]
+      "tags": [
+        "Racing",
+        "WebGL",
+        "3D"
+      ]
     },
     {
       "id": "kittensgame",
@@ -141,7 +174,11 @@
       "color": "#0a0d08",
       "accent": "#ff8c42",
       "highlight": "#ffffff",
-      "tags": ["Idle", "Strategy", "City Builder"]
+      "tags": [
+        "Idle",
+        "Strategy",
+        "City Builder"
+      ]
     },
     {
       "id": "sandboxels",
@@ -152,7 +189,11 @@
       "color": "#0a0a0a",
       "accent": "#e8a020",
       "highlight": "#ffffff",
-      "tags": ["Sandbox", "Simulation", "Physics"]
+      "tags": [
+        "Sandbox",
+        "Simulation",
+        "Physics"
+      ]
     },
     {
       "id": "untrusted",
@@ -163,7 +204,11 @@
       "color": "#000a00",
       "accent": "#00ff41",
       "highlight": "#00ff41",
-      "tags": ["Puzzle", "Programming", "Hacking"]
+      "tags": [
+        "Puzzle",
+        "Programming",
+        "Hacking"
+      ]
     },
     {
       "id": "doom",
@@ -174,7 +219,11 @@
       "color": "#0d0000",
       "accent": "#cc2200",
       "highlight": "#ff4400",
-      "tags": ["FPS", "Classic", "Action"]
+      "tags": [
+        "FPS",
+        "Classic",
+        "Action"
+      ]
     },
     {
       "id": "paperclips",
@@ -185,7 +234,11 @@
       "color": "#0a0a12",
       "accent": "#4488ff",
       "highlight": "#ffffff",
-      "tags": ["Idle", "Incremental", "Strategy"]
+      "tags": [
+        "Idle",
+        "Incremental",
+        "Strategy"
+      ]
     },
     {
       "id": "diablo",
@@ -196,7 +249,11 @@
       "color": "#0d0000",
       "accent": "#8b0000",
       "highlight": "#c8a96e",
-      "tags": ["RPG", "Dungeon", "Action"]
+      "tags": [
+        "RPG",
+        "Dungeon",
+        "Action"
+      ]
     },
     {
       "id": "pixeldungeon",
@@ -207,7 +264,11 @@
       "color": "#0a0808",
       "accent": "#c0392b",
       "highlight": "#ffffff",
-      "tags": ["Roguelike", "RPG", "Dungeon"]
+      "tags": [
+        "Roguelike",
+        "RPG",
+        "Dungeon"
+      ]
     },
     {
       "id": "adarkroom",
@@ -218,18 +279,26 @@
       "color": "#0a0800",
       "accent": "#c8a84b",
       "highlight": "#f0e6c8",
-      "tags": ["Text", "Adventure", "Idle"]
+      "tags": [
+        "Text",
+        "Adventure",
+        "Idle"
+      ]
     },
     {
       "id": "wordle",
       "category": "web",
       "path": "games/web-port/wordle/build/",
       "name": "Wordle",
-      "description": "Guess the hidden five-letter word in six tries. A new puzzle every day — share your results without spoilers.",
+      "description": "Guess the hidden five-letter word in six tries. A new puzzle every day \u00e2\u20ac\u201d share your results without spoilers.",
       "color": "#0a0a0a",
       "accent": "#6aaa64",
       "highlight": "#ffffff",
-      "tags": ["Word", "Puzzle", "Daily"]
+      "tags": [
+        "Word",
+        "Puzzle",
+        "Daily"
+      ]
     },
     {
       "id": "candybox2",
@@ -240,7 +309,11 @@
       "color": "#0d0005",
       "accent": "#ff69b4",
       "highlight": "#ffffff",
-      "tags": ["Text", "RPG", "Idle"]
+      "tags": [
+        "Text",
+        "RPG",
+        "Idle"
+      ]
     },
     {
       "id": "celeste",
@@ -251,7 +324,11 @@
       "color": "#0d0010",
       "accent": "#ff77aa",
       "highlight": "#ffffff",
-      "tags": ["Platformer", "Indie", "Hard"]
+      "tags": [
+        "Platformer",
+        "Indie",
+        "Hard"
+      ]
     },
     {
       "id": "mindustry",
@@ -262,7 +339,11 @@
       "color": "#0a0f14",
       "accent": "#4da6ff",
       "highlight": "#ffffff",
-      "tags": ["Strategy", "Tower Defense", "Factory"]
+      "tags": [
+        "Strategy",
+        "Tower Defense",
+        "Factory"
+      ]
     },
     {
       "id": "fnf",
@@ -273,18 +354,11 @@
       "color": "#0d0010",
       "accent": "#ff3cac",
       "highlight": "#ffffff",
-      "tags": ["Rhythm", "Music", "Arcade"]
-    },
-    {
-      "id": "roms",
-      "category": "iframe",
-      "path": "games/iframe/roms/",
-      "name": "ROM Library",
-      "description": "A curated browser-based ROM library. Play classic titles straight in your browser — no downloads needed.",
-      "color": "#0d0d0d",
-      "accent": "#e0e0e0",
-      "highlight": "#ffffff",
-      "tags": ["Retro", "Classic", "Emulator"]
+      "tags": [
+        "Rhythm",
+        "Music",
+        "Arcade"
+      ]
     },
     {
       "id": "mario64",
@@ -295,7 +369,11 @@
       "color": "#12031a",
       "accent": "#e4000f",
       "highlight": "#ffd700",
-      "tags": ["N64", "Platformer", "Classic"]
+      "tags": [
+        "N64",
+        "Platformer",
+        "Classic"
+      ]
     },
     {
       "id": "zelda",
@@ -306,7 +384,11 @@
       "color": "#0a1a0a",
       "accent": "#22c55e",
       "highlight": "#ffd700",
-      "tags": ["SNES", "Adventure", "Classic"]
+      "tags": [
+        "SNES",
+        "Adventure",
+        "Classic"
+      ]
     },
     {
       "id": "mariokart",
@@ -317,7 +399,11 @@
       "color": "#0a0a2a",
       "accent": "#facc15",
       "highlight": "#ffffff",
-      "tags": ["N64", "Racing", "Multiplayer"]
+      "tags": [
+        "N64",
+        "Racing",
+        "Multiplayer"
+      ]
     }
   ]
 }

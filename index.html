@@ -612,6 +612,34 @@
 
     .toggle-label { font-size: 14px; font-weight: 600; color: var(--text); }
 
+    /* ── Notice banner ── */
+    .notice-banner {
+      background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+      border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+      border-radius: var(--radius);
+      padding: 14px 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .notice-banner-msg { flex: 1; }
+    .notice-banner-close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 16px;
+      flex-shrink: 0;
+      padding: 0 2px;
+      line-height: 1;
+    }
+    .notice-banner-close:hover { color: var(--text); }
+
     /* ── Responsive ── */
     @media (max-width: 960px) {
       .sidebar { display: none; }
@@ -640,8 +668,9 @@
       </a>
       <nav>
         <button class="nav-tab" data-tab="web">Web Ports</button>
-        <button class="nav-tab" data-tab="iframes">iframes</button>
         <button class="nav-tab" data-tab="roms">ROMs</button>
+        <button class="nav-tab" data-tab="new-local">New: Local</button>
+        <button class="nav-tab" data-tab="new-online">New: Online</button>
         <button class="nav-tab" data-tab="settings">Settings</button>
       </nav>
       <div class="search-wrap">
@@ -683,13 +712,25 @@
         </div>
       </div>
 
-      <!-- Iframes -->
-      <div class="view" id="view-iframes">
+      <!-- New Games: Fully Local -->
+      <div class="view" id="view-new-local">
+        <div id="reqFailedBanner"></div>
         <div class="section-header">
-          <h2 class="section-title">iframes</h2>
-          <span class="game-count" id="iframesCount">…</span>
+          <h2 class="section-title">New Games: Fully Local</h2>
+          <span class="game-count" id="newLocalCount">…</span>
         </div>
-        <div class="games-grid" id="iframesGrid">
+        <div class="games-grid" id="newLocalGrid">
+          <div class="state-cell"><div class="spinner"></div>Loading…</div>
+        </div>
+      </div>
+
+      <!-- New Games: Not Fully Local -->
+      <div class="view" id="view-new-online">
+        <div class="section-header">
+          <h2 class="section-title">New Games: Not Fully Local</h2>
+          <span class="game-count" id="newOnlineCount">…</span>
+        </div>
+        <div class="games-grid" id="newOnlineGrid">
           <div class="state-cell"><div class="spinner"></div>Loading…</div>
         </div>
       </div>
@@ -854,8 +895,8 @@
     }
 
     // ── Sidebar ───────────────────────────────────────────────
-    const CAT_TAB   = { web: 'web', iframe: 'iframes', rom: 'roms' };
-    const CAT_LABEL = { web: 'Web', iframe: 'IFR', rom: 'ROM' };
+    const CAT_TAB   = { web: 'web', rom: 'roms', 'new-local': 'new-local', 'new-online': 'new-online' };
+    const CAT_LABEL = { web: 'Web', rom: 'ROM', 'new-local': 'NEW', 'new-online': 'NEW' };
 
     function buildSidebar(games) {
       const sorted = [...games].sort((a, b) => a.name.localeCompare(b.name));
@@ -886,7 +927,7 @@
     function highlightSidebarForTab(tabId) {
       document.querySelectorAll('.sidebar-item').forEach(btn => {
         const expectedTab = CAT_TAB[btn.dataset.cat] || 'web';
-        btn.classList.toggle('highlighted', expectedTab === tabId && tabId !== 'settings' && tabId !== 'search');
+        btn.classList.toggle('highlighted', expectedTab === tabId && tabId !== 'settings' && tabId !== 'search' && tabId !== 'new-local' && tabId !== 'new-online');
       });
     }
 
@@ -913,27 +954,49 @@
         const { games } = await fetch('games/registry.json').then(r => r.json());
         allGames = games;
 
-        const web     = games.filter(g => g.category === 'web');
-        const iframes = games.filter(g => g.category === 'iframe');
-        const rom     = games.filter(g => g.category === 'rom');
+        const web       = games.filter(g => g.category === 'web');
+        const rom       = games.filter(g => g.category === 'rom');
+        const newLocal  = games.filter(g => g.category === 'new-local');
+        const newOnline = games.filter(g => g.category === 'new-online');
 
-        document.getElementById('webCount').textContent     = web.length     + ' game' + (web.length     !== 1 ? 's' : '');
-        document.getElementById('iframesCount').textContent = iframes.length + ' game' + (iframes.length !== 1 ? 's' : '');
-        document.getElementById('romCount').textContent     = rom.length     + ' game' + (rom.length     !== 1 ? 's' : '');
+        const countText = n => n + ' game' + (n !== 1 ? 's' : '');
+        document.getElementById('webCount').textContent      = countText(web.length);
+        document.getElementById('romCount').textContent      = countText(rom.length);
+        document.getElementById('newLocalCount').textContent  = countText(newLocal.length);
+        document.getElementById('newOnlineCount').textContent = countText(newOnline.length);
 
-        document.getElementById('webGrid').innerHTML     = web.length     ? web.map(cardHTML).join('')     : '<div class="state-cell">No web ports yet.</div>';
-        document.getElementById('iframesGrid').innerHTML = iframes.length ? iframes.map(cardHTML).join('') : '<div class="state-cell">No iframes yet.</div>';
-        document.getElementById('romGrid').innerHTML     = rom.length     ? rom.map(cardHTML).join('')     : '<div class="state-cell">No ROMs yet.</div>';
+        document.getElementById('webGrid').innerHTML      = web.length      ? web.map(cardHTML).join('')      : '<div class="state-cell">No web ports yet.</div>';
+        document.getElementById('romGrid').innerHTML      = rom.length      ? rom.map(cardHTML).join('')      : '<div class="state-cell">No ROMs yet.</div>';
+        document.getElementById('newLocalGrid').innerHTML  = newLocal.length  ? newLocal.map(cardHTML).join('')  : '<div class="state-cell">No fully local games added yet.</div>';
+        document.getElementById('newOnlineGrid').innerHTML = newOnline.length ? newOnline.map(cardHTML).join('') : '<div class="state-cell">No online-dependent games added yet.</div>';
 
         buildSidebar(games);
         switchTab(localStorage.getItem('arcadeTab') || 'web');
+        loadRequestLog();
 
       } catch (err) {
         const msg = `<div class="state-cell">Failed to load games.<br><small style="opacity:.6">${err.message}</small></div>`;
-        ['webGrid','iframesGrid','romGrid','searchGrid'].forEach(id => document.getElementById(id).innerHTML = msg);
-        ['webCount','iframesCount','romCount','searchCount'].forEach(id => document.getElementById(id).textContent = 'Error');
+        ['webGrid','romGrid','newLocalGrid','newOnlineGrid','searchGrid'].forEach(id => document.getElementById(id).innerHTML = msg);
+        ['webCount','romCount','newLocalCount','newOnlineCount','searchCount'].forEach(id => document.getElementById(id).textContent = 'Error');
         console.error(err);
       }
+    }
+
+    async function loadRequestLog() {
+      try {
+        const log    = await fetch('games/request-log.json').then(r => r.json());
+        const failed = log.filter(e => e.status === 'failed');
+        const banner = document.getElementById('reqFailedBanner');
+        if (!banner) return;
+        banner.innerHTML = '';
+        if (!failed.length) return;
+        const names = failed.map(e => `"${e.gameName}"`).join(', ');
+        banner.innerHTML = `
+          <div class="notice-banner">
+            <span class="notice-banner-msg">No downloadable open-source files could be found online for the following requested game(s): ${names}. These titles may not have a publicly available build.</span>
+            <button class="notice-banner-close" onclick="this.closest('.notice-banner').remove()">✕</button>
+          </div>`;
+      } catch {}
     }
 
     renderGames();
