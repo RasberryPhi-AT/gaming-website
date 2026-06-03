@@ -111,6 +111,17 @@
       "tags": ["Minecraft", "Sandbox", "Survival"]
     },
     {
+      "id": "mindustry",
+      "category": "web",
+      "path": "games/web-port/mindustry/",
+      "name": "Mindustry",
+      "description": "A factory-building tower defense game. Mine resources, build supply chains, and defend your base from waves of enemies.",
+      "color": "#0a0f14",
+      "accent": "#4da6ff",
+      "highlight": "#ffffff",
+      "tags": ["Strategy", "Tower Defense", "Factory"]
+    },
+    {
       "id": "fnf",
       "category": "web",
       "path": "games/web-port/Funkin/html5_build/",
