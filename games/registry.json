@@ -111,6 +111,17 @@
       "tags": ["Minecraft", "Sandbox", "Survival"]
     },
     {
+      "id": "fnf",
+      "category": "web",
+      "path": "games/web-port/Funkin/html5_build/",
+      "name": "Friday Night Funkin'",
+      "description": "Rap battle your way to your girlfriend's heart. Hit the notes, feel the beat, and don't miss.",
+      "color": "#0d0010",
+      "accent": "#ff3cac",
+      "highlight": "#ffffff",
+      "tags": ["Rhythm", "Music", "Arcade"]
+    },
+    {
       "id": "roms",
       "category": "iframe",
       "path": "games/iframe/roms/",
