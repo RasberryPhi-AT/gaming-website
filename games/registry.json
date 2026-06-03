@@ -111,6 +111,17 @@
       "tags": ["Minecraft", "Sandbox", "Survival"]
     },
     {
+      "id": "hexgl",
+      "category": "web",
+      "path": "games/web-port/hexgl/",
+      "name": "HexGL",
+      "description": "A futuristic WebGL racing game inspired by WipeOut. Race your ship through a neon cityscape track at full speed.",
+      "color": "#000a1a",
+      "accent": "#00cfff",
+      "highlight": "#ffffff",
+      "tags": ["Racing", "WebGL", "3D"]
+    },
+    {
       "id": "kittensgame",
       "category": "web",
       "path": "games/web-port/kittensgame/",
