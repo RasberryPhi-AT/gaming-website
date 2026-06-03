@@ -25,7 +25,7 @@ export async function onRequestPost(context) {
         Authorization: `Bearer ${context.env.AUTOMATION_GITHUB_TOKEN}`,
         Accept: "application/vnd.github.v3+json",
         "Content-Type": "application/json",
-        "User-Agent": "Cloudflare-Pages",
+        "User-Agent": "Cloudflare-Pages-Worker",
       },
       body: JSON.stringify({
         event_type: "add_game_request",
@@ -42,7 +42,7 @@ export async function onRequestPost(context) {
   }
 
   const errorText = await response.text();
-  return new Response(errorText, {
+  return new Response(JSON.stringify({ error: errorText }), {
     status: response.status,
     headers: { "Content-Type": "application/json" },
   });
