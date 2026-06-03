@@ -2,13 +2,19 @@
 window.addEventListener('keydown',function(e){
   if(e.ctrlKey||e.altKey||e.metaKey)return;
   var label;
-  if(e.key==='Enter')label='ENTER';
-  else if(e.key==='Backspace')label='DELETE';
+  // Buttons render: "Enter", "Delete", or uppercase letter
+  if(e.key==='Enter')label='Enter';
+  else if(e.key==='Backspace')label='Delete';
   else if(/^[a-zA-Z]$/.test(e.key))label=e.key.toUpperCase();
   else return;
-  var btns=document.querySelectorAll('button');
-  for(var i=0;i<btns.length;i++){
-    if(btns[i].textContent.trim()===label){btns[i].click();break;}
+  // Keys are <div> elements (not buttons) with cursor-pointer class
+  var candidates=document.querySelectorAll('[class*="cursor-pointer"]');
+  for(var i=0;i<candidates.length;i++){
+    if(candidates[i].textContent.trim()===label){
+      candidates[i].click();
+      e.preventDefault();
+      return;
+    }
   }
 });
 </script></body></html>
