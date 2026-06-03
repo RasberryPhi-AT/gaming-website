@@ -7,7 +7,8 @@ import zipfile
 from groq import Groq
 from duckduckgo_search import DDGS
 
-# Curated card color palettes — one is chosen at random per game
+# ── Card color palettes — one picked at random per game ──────────────────────
+
 PALETTES = [
     {"color": "#0a0a12", "accent": "#7c3aed", "highlight": "#c4b5fd"},
     {"color": "#0d0000", "accent": "#cc2200", "highlight": "#ff6644"},
@@ -21,19 +22,21 @@ PALETTES = [
     {"color": "#0a0005", "accent": "#a855f7", "highlight": "#e9d5ff"},
 ]
 
-# ── 1. Parse event payload ────────────────────────────────────────────────────
+# ── 1. Parse incoming event payload ──────────────────────────────────────────
+#
+# The workflow passes the dispatch event as DISPATCH_EVENT_PAYLOAD because
+# GitHub Actions reserves all GITHUB_* env var names and silently drops any
+# custom variable whose name starts with that prefix.
 
-# NOTE: GITHUB_* env var names are reserved by GitHub Actions and cannot be set
-# in a step's env: block — the workflow passes this as DISPATCH_EVENT_PAYLOAD.
 payload   = json.loads(os.environ["DISPATCH_EVENT_PAYLOAD"])
 game_name = payload["client_payload"]["gameName"]
 slug      = game_name.lower().replace(" ", "-")
 
-print(f"[merge_game] Requested: {game_name!r}  slug={slug}")
+print(f"[merge_game] game={game_name!r}  slug={slug}")
 
 client = Groq(api_key=os.environ["GROQ_API_KEY"])
 
-# ── 2. Web search for a downloadable zip ─────────────────────────────────────
+# ── 2. DuckDuckGo search ──────────────────────────────────────────────────────
 
 query   = f'"{game_name}" html5 game open source zip download github'
 results = list(DDGS().text(query, max_results=5))
@@ -43,52 +46,53 @@ search_block = "\n\n".join(
     for r in results
 )
 
-print(f"[merge_game] Search: {len(results)} result(s)")
+print(f"[merge_game] search returned {len(results)} result(s)")
 
-# ── 3. Ask Groq to identify a direct zip download link ───────────────────────
+# ── 3. Ask Groq for a direct zip download URL ─────────────────────────────────
 
-url_response = client.chat.completions.create(
+url_resp = client.chat.completions.create(
     model="llama-3.3-70b-versatile",
     messages=[{
         "role": "user",
         "content": (
-            f'You are a research assistant locating open-source HTML5 game files.\n\n'
-            f'Search results for "{game_name}":\n{search_block}\n\n'
-            f'Look through the snippets and determine a single direct .zip download URL '
-            f'(e.g. a GitHub release asset or /archive/ link) that contains the HTML5 game assets.\n'
-            f'If no such link is clearly present or inferable, respond with exactly: FAILED\n'
-            f'Otherwise respond with only the raw download URL — no punctuation, no explanation.'
+            f'You are a research assistant locating open-source HTML5 browser game files.\n\n'
+            f'Web search results for "{game_name}":\n{search_block}\n\n'
+            f'Find a single direct downloadable .zip URL that contains the HTML5 game assets '
+            f'(e.g. a GitHub release asset or /archive/ link). The game must be browser-compatible.\n'
+            f'If no verifiable link is present or inferable from the results, respond with exactly '
+            f'the word: FAILED\n'
+            f'Otherwise output only the raw URL — no punctuation, no markdown, no explanation.'
         ),
     }],
     temperature=0,
 )
 
-zip_url = url_response.choices[0].message.content.strip()
-print(f"[merge_game] Groq returned: {zip_url!r}")
+zip_url = url_resp.choices[0].message.content.strip()
+print(f"[merge_game] zip_url={zip_url!r}")
 
-# ── 4. Exit cleanly if no zip was found ──────────────────────────────────────
+# ── 4. Exit safely if nothing was found ──────────────────────────────────────
 
 if zip_url == "FAILED":
-    print("[merge_game] No downloadable zip found. Exiting safely.")
+    print("[merge_game] No downloadable zip found. Exiting.")
     raise SystemExit(0)
 
-# ── 5. Download and unpack the archive ───────────────────────────────────────
+# ── 5. Download archive and extract into games/<slug>/ ───────────────────────
 
 archive_path = f"/tmp/{slug}.zip"
 extract_dir  = f"games/{slug}"
 
-print(f"[merge_game] Downloading {zip_url} → {archive_path}")
+print(f"[merge_game] downloading → {archive_path}")
 urllib.request.urlretrieve(zip_url, archive_path)
 
 os.makedirs(extract_dir, exist_ok=True)
 
-print(f"[merge_game] Extracting → {extract_dir}/")
+print(f"[merge_game] extracting → {extract_dir}/")
 with zipfile.ZipFile(archive_path, "r") as zf:
     zf.extractall(extract_dir)
 
 os.remove(archive_path)
 
-# ── 6. Locate index.html and resolve its relative path ───────────────────────
+# ── 6. Recursively locate the index.html entry point ─────────────────────────
 
 index_rel = None
 for dirpath, _dirs, files in os.walk(extract_dir):
@@ -97,14 +101,13 @@ for dirpath, _dirs, files in os.walk(extract_dir):
         break
 
 if index_rel is None:
-    print("[merge_game] WARNING: index.html not found in extracted archive.")
+    print("[merge_game] WARNING: index.html not found — using fallback path")
     index_rel = f"{extract_dir}/index.html"
 
 game_path = index_rel[: index_rel.rfind("/") + 1]
-print(f"[merge_game] Entry point: {index_rel}")
-print(f"[merge_game] Game path:   {game_path}")
+print(f"[merge_game] entry={index_rel}  path={game_path}")
 
-# ── 7. Load (or create) games/registry.json ──────────────────────────────────
+# ── 7. Load or initialise games/registry.json ────────────────────────────────
 
 registry_path = "games/registry.json"
 
@@ -112,54 +115,56 @@ if os.path.exists(registry_path):
     with open(registry_path, "r", encoding="utf-8") as f:
         registry_text = f.read()
 else:
+    print("[merge_game] registry.json missing — creating default")
     registry_text = json.dumps({"games": []}, indent=2)
 
-# ── 8. Ask Groq to append a new record and return updated registry JSON ───────
+# ── 8. Ask Groq to append the new game record and return clean JSON ───────────
 
 game_id = str(uuid.uuid4()).replace("-", "")[:8]
 palette = random.choice(PALETTES)
 
-registry_response = client.chat.completions.create(
+registry_resp = client.chat.completions.create(
     model="llama-3.3-70b-versatile",
     messages=[{
         "role": "user",
         "content": (
-            f'You are a JSON editor maintaining a game registry file.\n\n'
-            f'Current registry:\n{registry_text}\n\n'
-            f'Append a new game entry using these pre-assigned values exactly as given:\n'
-            f'- "id": "{game_id}"\n'
-            f'- "category": "web"\n'
-            f'- "name": "{game_name}"\n'
-            f'- "path": "{game_path}"\n'
-            f'- "color": "{palette["color"]}"\n'
-            f'- "accent": "{palette["accent"]}"\n'
-            f'- "highlight": "{palette["highlight"]}"\n\n'
-            f'You must generate the following fields based on your knowledge of the game:\n'
-            f'- "description": a concise 1-2 sentence summary of what the game is and why it is fun\n'
-            f'- "tags": an array of 2-4 short genre/style strings (e.g. "Puzzle", "Action", "Retro")\n\n'
-            f'Return ONLY the complete updated JSON object — '
-            f'no markdown fences, no explanation, no extra text.'
+            f'You are a JSON editor maintaining an arcade game registry.\n\n'
+            f'Current registry JSON:\n{registry_text}\n\n'
+            f'Append one new entry to the "games" array using the pre-assigned values below exactly '
+            f'as provided — do not alter them:\n'
+            f'  "id": "{game_id}"\n'
+            f'  "category": "web"\n'
+            f'  "name": "{game_name}"\n'
+            f'  "path": "{game_path}"\n'
+            f'  "color": "{palette["color"]}"\n'
+            f'  "accent": "{palette["accent"]}"\n'
+            f'  "highlight": "{palette["highlight"]}"\n\n'
+            f'Generate the remaining fields from your knowledge of the game:\n'
+            f'  "description": a punchy 1-2 sentence abstract explaining the game and why it is fun\n'
+            f'  "tags": an array of 2-4 short genre or style label strings\n\n'
+            f'Return ONLY the complete updated JSON object. '
+            f'No markdown fences, no commentary, no extra text whatsoever.'
         ),
     }],
     temperature=0.3,
 )
 
-updated_json = registry_response.choices[0].message.content.strip()
+updated_json = registry_resp.choices[0].message.content.strip()
 
-# Strip accidental markdown fences if the model wrapped its output
-if updated_json.startswith("```"):
+# Strip markdown fences the model may have added despite instructions
+if "```" in updated_json:
     lines = updated_json.splitlines()
     updated_json = "\n".join(l for l in lines if not l.startswith("```")).strip()
 
-# Validate before writing — bail rather than corrupt the registry
+# Validate — abort rather than corrupt the registry
 try:
     json.loads(updated_json)
 except json.JSONDecodeError as exc:
-    print(f"[merge_game] Groq returned invalid JSON: {exc}")
+    print(f"[merge_game] invalid JSON from Groq: {exc}")
     print(updated_json)
     raise SystemExit(1)
 
 with open(registry_path, "w", encoding="utf-8") as f:
     f.write(updated_json)
 
-print(f"[merge_game] registry.json updated — {game_name!r} added (id={game_id})")
+print(f"[merge_game] done — {game_name!r} written to registry (id={game_id})")
