@@ -1018,11 +1018,11 @@
           body: JSON.stringify({ gameName }),
         });
         if (res.ok) {
-          status.textContent = 'Success! Checking sources...';
+          status.textContent = 'Success! AI is deploying your game...';
           input.value = '';
         } else {
-          const errText = await res.text();
-          status.textContent = errText || `Error ${res.status}`;
+          const data = await res.json().catch(() => null);
+          status.textContent = (data && data.error) ? data.error : `Error ${res.status}`;
         }
       } catch (err) {
         status.textContent = err.message;
