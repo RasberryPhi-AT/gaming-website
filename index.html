@@ -18,6 +18,8 @@
       --accent:       #7c3aed;
       --accent-glow:  rgba(124, 58, 237, 0.4);
       --radius:       16px;
+      --header-h:     62px;
+      --sidebar-w:    216px;
     }
 
     body.theme-light {
@@ -67,7 +69,7 @@
       z-index: 0;
     }
 
-    /* ── Header / Nav ── */
+    /* ── Header ── */
     header {
       position: sticky;
       top: 0;
@@ -79,13 +81,13 @@
     }
 
     .header-inner {
-      max-width: 1200px;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 0 48px;
-      height: 62px;
+      padding: 0 24px;
+      height: var(--header-h);
       display: flex;
       align-items: center;
-      gap: 28px;
+      gap: 20px;
     }
 
     .logo {
@@ -136,7 +138,7 @@
     }
 
     .nav-tab {
-      padding: 7px 20px;
+      padding: 7px 18px;
       border-radius: 50px;
       font-size: 13px;
       font-weight: 600;
@@ -157,13 +159,148 @@
       box-shadow: 0 0 18px var(--accent-glow);
     }
 
-    /* ── Main ── */
-    main {
+    /* ── Search ── */
+    .search-wrap {
+      flex: 1;
+      max-width: 300px;
+      margin-left: auto;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 11px;
+      color: var(--muted);
+      font-size: 15px;
+      pointer-events: none;
+      line-height: 1;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 36px;
+      padding: 0 34px 0 32px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      font-family: inherit;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    .search-input::placeholder { color: var(--muted); }
+
+    .search-clear {
+      position: absolute;
+      right: 10px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
+      padding: 2px;
+      display: none;
+    }
+
+    .search-clear:hover { color: var(--text); }
+
+    /* ── Layout ── */
+    .layout {
+      display: flex;
       position: relative;
       z-index: 1;
-      max-width: 1200px;
+      max-width: 1600px;
       margin: 0 auto;
-      padding: 40px 48px 80px;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      position: sticky;
+      top: var(--header-h);
+      height: calc(100vh - var(--header-h));
+      overflow-y: auto;
+      padding: 20px 0 40px;
+      border-right: 1px solid var(--border);
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    .sidebar-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      color: var(--muted);
+      padding: 0 16px;
+      margin-bottom: 8px;
+    }
+
+    .sidebar-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 16px;
+      border-radius: 0;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      text-align: left;
+      transition: background 0.13s, color 0.13s;
+      gap: 6px;
+      font-family: inherit;
+    }
+
+    .sidebar-item:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .sidebar-item.highlighted {
+      color: var(--text);
+      background: color-mix(in srgb, var(--accent) 12%, transparent);
+    }
+
+    .sidebar-name {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .sidebar-cat {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      color: var(--muted);
+      opacity: 0.55;
+      flex-shrink: 0;
+    }
+
+    /* ── Main ── */
+    main {
+      flex: 1;
+      min-width: 0;
+      padding: 40px 40px 80px;
     }
 
     .section-header {
@@ -198,11 +335,11 @@
     .games-grid {
       display: grid;
       gap: 20px;
-      grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     }
 
-    body.cards-sm .games-grid { grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); }
-    body.cards-lg .games-grid { grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); }
+    body.cards-sm .games-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+    body.cards-lg .games-grid { grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); }
 
     /* ── Game Card ── */
     .game-card {
@@ -227,6 +364,11 @@
         0 28px 56px rgba(0, 0, 0, 0.55),
         0 0 0 1px rgba(140, 120, 255, 0.07),
         0 0 48px rgba(124, 58, 237, 0.08);
+    }
+
+    .game-card.flash {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent);
     }
 
     /* ── Thumbnail ── */
@@ -262,7 +404,7 @@
     .thumb-title {
       position: relative;
       z-index: 1;
-      font-size: 34px;
+      font-size: 32px;
       font-weight: 900;
       letter-spacing: 1px;
       text-align: center;
@@ -272,7 +414,7 @@
     }
 
     body.cards-sm .thumb-title { font-size: 24px; }
-    body.cards-lg .thumb-title { font-size: 42px; }
+    body.cards-lg .thumb-title { font-size: 40px; }
 
     /* ── Play overlay ── */
     .play-overlay {
@@ -313,18 +455,18 @@
     }
 
     .game-name {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 700;
       color: var(--text);
       margin-bottom: 6px;
       letter-spacing: 0.2px;
     }
 
-    body.font-sm .game-name { font-size: 14px; }
-    body.font-lg .game-name { font-size: 19px; }
+    body.font-sm .game-name { font-size: 13px; }
+    body.font-lg .game-name { font-size: 18px; }
 
     .game-desc {
-      font-size: 13px;
+      font-size: 12.5px;
       color: var(--muted);
       line-height: 1.55;
       margin-bottom: 14px;
@@ -334,8 +476,8 @@
       overflow: hidden;
     }
 
-    body.font-sm .game-desc { font-size: 12px; }
-    body.font-lg .game-desc { font-size: 15px; }
+    body.font-sm .game-desc { font-size: 11px; }
+    body.font-lg .game-desc { font-size: 14px; }
 
     .game-tags {
       display: flex;
@@ -355,7 +497,7 @@
     }
 
     body.font-sm .tag { font-size: 10px; }
-    body.font-lg .tag { font-size: 13px; }
+    body.font-lg .tag { font-size: 12px; }
 
     /* ── State cells ── */
     .state-cell {
@@ -423,6 +565,7 @@
       transition: border-color 0.18s, color 0.18s, background 0.18s, box-shadow 0.18s;
       text-align: center;
       white-space: nowrap;
+      font-family: inherit;
     }
 
     .setting-btn:hover { border-color: var(--border-hover); color: var(--text); }
@@ -470,11 +613,16 @@
     .toggle-label { font-size: 14px; font-weight: 600; color: var(--text); }
 
     /* ── Responsive ── */
+    @media (max-width: 960px) {
+      .sidebar { display: none; }
+    }
+
     @media (max-width: 700px) {
-      .header-inner { padding: 0 16px; gap: 10px; }
+      .header-inner { padding: 0 14px; gap: 10px; }
       .logo-text { display: none; }
-      .nav-tab { padding: 7px 14px; font-size: 12px; }
-      main { padding: 28px 20px 60px; }
+      .nav-tab { padding: 7px 12px; font-size: 12px; }
+      .search-wrap { max-width: 140px; }
+      main { padding: 24px 16px 60px; }
       .games-grid,
       body.cards-sm .games-grid,
       body.cards-lg .games-grid { grid-template-columns: 1fr; }
@@ -496,83 +644,107 @@
         <button class="nav-tab" data-tab="roms">ROMs</button>
         <button class="nav-tab" data-tab="settings">Settings</button>
       </nav>
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input class="search-input" id="searchInput" type="text" placeholder="Search games…" autocomplete="off" spellcheck="false">
+        <button class="search-clear" id="searchClear" aria-label="Clear search">✕</button>
+      </div>
     </div>
   </header>
 
-  <main>
+  <div class="layout">
 
-    <!-- Web Ports -->
-    <div class="view" id="view-web">
-      <div class="section-header">
-        <h2 class="section-title">Web Ports</h2>
-        <span class="game-count" id="webCount">…</span>
-      </div>
-      <div class="games-grid" id="webGrid">
-        <div class="state-cell"><div class="spinner"></div>Loading…</div>
-      </div>
-    </div>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-label">All Games</div>
+      <div id="sidebarList"></div>
+    </aside>
 
-    <!-- Iframes -->
-    <div class="view" id="view-iframes">
-      <div class="section-header">
-        <h2 class="section-title">iframes</h2>
-        <span class="game-count" id="iframesCount">…</span>
-      </div>
-      <div class="games-grid" id="iframesGrid">
-        <div class="state-cell"><div class="spinner"></div>Loading…</div>
-      </div>
-    </div>
+    <!-- Content -->
+    <main>
 
-    <!-- ROMs -->
-    <div class="view" id="view-roms">
-      <div class="section-header">
-        <h2 class="section-title">ROMs</h2>
-        <span class="game-count" id="romCount">…</span>
+      <!-- Search results -->
+      <div class="view" id="view-search">
+        <div class="section-header">
+          <h2 class="section-title">Search Results</h2>
+          <span class="game-count" id="searchCount">…</span>
+        </div>
+        <div class="games-grid" id="searchGrid"></div>
       </div>
-      <div class="games-grid" id="romGrid">
-        <div class="state-cell"><div class="spinner"></div>Loading…</div>
-      </div>
-    </div>
 
-    <!-- Settings -->
-    <div class="view" id="view-settings">
-      <div class="section-header">
-        <h2 class="section-title">Settings</h2>
+      <!-- Web Ports -->
+      <div class="view" id="view-web">
+        <div class="section-header">
+          <h2 class="section-title">Web Ports</h2>
+          <span class="game-count" id="webCount">…</span>
+        </div>
+        <div class="games-grid" id="webGrid">
+          <div class="state-cell"><div class="spinner"></div>Loading…</div>
+        </div>
       </div>
-      <div class="settings-grid">
 
-        <div class="setting-card">
-          <div class="setting-label">Theme</div>
-          <div class="theme-row">
-            <div class="toggle-track" id="themeToggle">
-              <div class="toggle-thumb"></div>
+      <!-- Iframes -->
+      <div class="view" id="view-iframes">
+        <div class="section-header">
+          <h2 class="section-title">iframes</h2>
+          <span class="game-count" id="iframesCount">…</span>
+        </div>
+        <div class="games-grid" id="iframesGrid">
+          <div class="state-cell"><div class="spinner"></div>Loading…</div>
+        </div>
+      </div>
+
+      <!-- ROMs -->
+      <div class="view" id="view-roms">
+        <div class="section-header">
+          <h2 class="section-title">ROMs</h2>
+          <span class="game-count" id="romCount">…</span>
+        </div>
+        <div class="games-grid" id="romGrid">
+          <div class="state-cell"><div class="spinner"></div>Loading…</div>
+        </div>
+      </div>
+
+      <!-- Settings -->
+      <div class="view" id="view-settings">
+        <div class="section-header">
+          <h2 class="section-title">Settings</h2>
+        </div>
+        <div class="settings-grid">
+
+          <div class="setting-card">
+            <div class="setting-label">Theme</div>
+            <div class="theme-row">
+              <div class="toggle-track" id="themeToggle">
+                <div class="toggle-thumb"></div>
+              </div>
+              <span class="toggle-label" id="toggleLabel">Dark</span>
             </div>
-            <span class="toggle-label" id="toggleLabel">Dark</span>
           </div>
-        </div>
 
-        <div class="setting-card">
-          <div class="setting-label">Font Size</div>
-          <div class="setting-options">
-            <button class="setting-btn" data-setting="font" data-value="font-sm">Small</button>
-            <button class="setting-btn" data-setting="font" data-value="font-md">Medium</button>
-            <button class="setting-btn" data-setting="font" data-value="font-lg">Large</button>
+          <div class="setting-card">
+            <div class="setting-label">Font Size</div>
+            <div class="setting-options">
+              <button class="setting-btn" data-setting="font" data-value="font-sm">Small</button>
+              <button class="setting-btn" data-setting="font" data-value="font-md">Medium</button>
+              <button class="setting-btn" data-setting="font" data-value="font-lg">Large</button>
+            </div>
           </div>
-        </div>
 
-        <div class="setting-card">
-          <div class="setting-label">Card Size</div>
-          <div class="setting-options">
-            <button class="setting-btn" data-setting="cards" data-value="cards-sm">Compact</button>
-            <button class="setting-btn" data-setting="cards" data-value="cards-md">Normal</button>
-            <button class="setting-btn" data-setting="cards" data-value="cards-lg">Large</button>
+          <div class="setting-card">
+            <div class="setting-label">Card Size</div>
+            <div class="setting-options">
+              <button class="setting-btn" data-setting="cards" data-value="cards-sm">Compact</button>
+              <button class="setting-btn" data-setting="cards" data-value="cards-md">Normal</button>
+              <button class="setting-btn" data-setting="cards" data-value="cards-lg">Large</button>
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
-    </div>
 
-  </main>
+    </main>
+  </div>
 
   <script>
     // ── Settings ─────────────────────────────────────────────
@@ -582,20 +754,15 @@
 
     let settings = { ...DEFAULTS, ...JSON.parse(localStorage.getItem('arcadeSettings') || '{}') };
 
-    function saveSettings() {
-      localStorage.setItem('arcadeSettings', JSON.stringify(settings));
-    }
+    function saveSettings() { localStorage.setItem('arcadeSettings', JSON.stringify(settings)); }
 
     function applySettings() {
       document.body.classList.toggle('theme-light', settings.theme === 'light');
       document.getElementById('toggleLabel').textContent = settings.theme === 'light' ? 'Light' : 'Dark';
-
       FONT_CLASSES.forEach(c => document.body.classList.remove(c));
       document.body.classList.add(settings.font);
-
       CARDS_CLASSES.forEach(c => document.body.classList.remove(c));
       document.body.classList.add(settings.cards);
-
       document.querySelectorAll('.setting-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.value === settings[btn.dataset.setting]);
       });
@@ -605,15 +772,13 @@
 
     document.getElementById('themeToggle').addEventListener('click', () => {
       settings.theme = settings.theme === 'light' ? 'dark' : 'light';
-      saveSettings();
-      applySettings();
+      saveSettings(); applySettings();
     });
 
     document.querySelectorAll('.setting-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         settings[btn.dataset.setting] = btn.dataset.value;
-        saveSettings();
-        applySettings();
+        saveSettings(); applySettings();
       });
     });
 
@@ -624,16 +789,102 @@
     function switchTab(tabId) {
       tabs.forEach(t  => t.classList.toggle('active', t.dataset.tab === tabId));
       views.forEach(v => v.classList.toggle('active', v.id === 'view-' + tabId));
-      localStorage.setItem('arcadeTab', tabId);
+      if (tabId !== 'search') localStorage.setItem('arcadeTab', tabId);
+      highlightSidebarForTab(tabId);
     }
 
-    tabs.forEach(tab => tab.addEventListener('click', () => switchTab(tab.dataset.tab)));
-    switchTab(localStorage.getItem('arcadeTab') || 'web');
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      clearSearch();
+      switchTab(tab.dataset.tab);
+    }));
+
+    // ── Search ────────────────────────────────────────────────
+    const searchInput = document.getElementById('searchInput');
+    const searchClear = document.getElementById('searchClear');
+    let allGames = [];
+
+    searchInput.addEventListener('input', () => {
+      const q = searchInput.value.trim();
+      searchClear.style.display = q ? 'block' : 'none';
+      if (q) {
+        runSearch(q.toLowerCase());
+      } else {
+        switchTab(localStorage.getItem('arcadeTab') || 'web');
+      }
+    });
+
+    searchInput.addEventListener('keydown', e => {
+      if (e.key === 'Escape') clearSearch();
+    });
+
+    searchClear.addEventListener('click', () => {
+      clearSearch();
+      searchInput.focus();
+    });
+
+    function clearSearch() {
+      searchInput.value = '';
+      searchClear.style.display = 'none';
+      switchTab(localStorage.getItem('arcadeTab') || 'web');
+    }
+
+    function runSearch(q) {
+      const results = allGames.filter(g =>
+        g.name.toLowerCase().includes(q) ||
+        g.description.toLowerCase().includes(q) ||
+        g.tags.some(t => t.toLowerCase().includes(q))
+      );
+      tabs.forEach(t => t.classList.remove('active'));
+      views.forEach(v => v.classList.toggle('active', v.id === 'view-search'));
+      document.getElementById('searchCount').textContent =
+        results.length + ' result' + (results.length !== 1 ? 's' : '');
+      document.getElementById('searchGrid').innerHTML = results.length
+        ? results.map(cardHTML).join('')
+        : '<div class="state-cell">No games match your search.</div>';
+      document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('highlighted'));
+    }
+
+    // ── Sidebar ───────────────────────────────────────────────
+    const CAT_TAB   = { web: 'web', iframe: 'iframes', rom: 'roms' };
+    const CAT_LABEL = { web: 'Web', iframe: 'IFR', rom: 'ROM' };
+
+    function buildSidebar(games) {
+      const sorted = [...games].sort((a, b) => a.name.localeCompare(b.name));
+      document.getElementById('sidebarList').innerHTML = sorted.map(g => `
+        <button class="sidebar-item" data-id="${g.id}" data-cat="${g.category}">
+          <span class="sidebar-name">${g.name}</span>
+          <span class="sidebar-cat">${CAT_LABEL[g.category] || ''}</span>
+        </button>`).join('');
+
+      document.querySelectorAll('.sidebar-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          clearSearch();
+          const tab = CAT_TAB[btn.dataset.cat] || 'web';
+          switchTab(tab);
+          const cardId = 'card-' + btn.dataset.id;
+          setTimeout(() => {
+            const card = document.getElementById(cardId);
+            if (card) {
+              card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              card.classList.add('flash');
+              setTimeout(() => card.classList.remove('flash'), 800);
+            }
+          }, 60);
+        });
+      });
+    }
+
+    function highlightSidebarForTab(tabId) {
+      document.querySelectorAll('.sidebar-item').forEach(btn => {
+        const expectedTab = CAT_TAB[btn.dataset.cat] || 'web';
+        btn.classList.toggle('highlighted', expectedTab === tabId && tabId !== 'settings' && tabId !== 'search');
+      });
+    }
 
     // ── Games ─────────────────────────────────────────────────
     function cardHTML(g) {
       return `
-        <a class="game-card" href="${g.path}">
+        <a class="game-card" id="card-${g.id}" href="${g.path}">
           <div class="game-thumbnail" style="background:${g.color}">
             <div class="thumb-glow" style="--g-accent:${g.accent}"></div>
             <div class="thumb-noise"></div>
@@ -651,23 +902,27 @@
     async function renderGames() {
       try {
         const { games } = await fetch('games/registry.json').then(r => r.json());
+        allGames = games;
 
-        const web    = games.filter(g => g.category === 'web');
+        const web     = games.filter(g => g.category === 'web');
         const iframes = games.filter(g => g.category === 'iframe');
-        const rom    = games.filter(g => g.category === 'rom');
+        const rom     = games.filter(g => g.category === 'rom');
 
-        document.getElementById('webCount').textContent    = web.length    + ' game' + (web.length    !== 1 ? 's' : '');
+        document.getElementById('webCount').textContent     = web.length     + ' game' + (web.length     !== 1 ? 's' : '');
         document.getElementById('iframesCount').textContent = iframes.length + ' game' + (iframes.length !== 1 ? 's' : '');
-        document.getElementById('romCount').textContent    = rom.length    + ' game' + (rom.length    !== 1 ? 's' : '');
+        document.getElementById('romCount').textContent     = rom.length     + ' game' + (rom.length     !== 1 ? 's' : '');
 
-        document.getElementById('webGrid').innerHTML    = web.length    ? web.map(cardHTML).join('')    : '<div class="state-cell">No web ports yet.</div>';
+        document.getElementById('webGrid').innerHTML     = web.length     ? web.map(cardHTML).join('')     : '<div class="state-cell">No web ports yet.</div>';
         document.getElementById('iframesGrid').innerHTML = iframes.length ? iframes.map(cardHTML).join('') : '<div class="state-cell">No iframes yet.</div>';
-        document.getElementById('romGrid').innerHTML    = rom.length    ? rom.map(cardHTML).join('')    : '<div class="state-cell">No ROMs yet.</div>';
+        document.getElementById('romGrid').innerHTML     = rom.length     ? rom.map(cardHTML).join('')     : '<div class="state-cell">No ROMs yet.</div>';
+
+        buildSidebar(games);
+        switchTab(localStorage.getItem('arcadeTab') || 'web');
 
       } catch (err) {
         const msg = `<div class="state-cell">Failed to load games.<br><small style="opacity:.6">${err.message}</small></div>`;
-        ['webGrid','iframesGrid','romGrid'].forEach(id => document.getElementById(id).innerHTML = msg);
-        ['webCount','iframesCount','romCount'].forEach(id => document.getElementById(id).textContent = 'Error');
+        ['webGrid','iframesGrid','romGrid','searchGrid'].forEach(id => document.getElementById(id).innerHTML = msg);
+        ['webCount','iframesCount','romCount','searchCount'].forEach(id => document.getElementById(id).textContent = 'Error');
         console.error(err);
       }
     }
