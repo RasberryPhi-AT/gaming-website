@@ -111,6 +111,17 @@
       "tags": ["Minecraft", "Sandbox", "Survival"]
     },
     {
+      "id": "pixeldungeon",
+      "category": "web",
+      "path": "games/web-port/pixeldungeon/",
+      "name": "Pixel Dungeon",
+      "description": "A classic roguelike dungeon crawler. Explore randomly generated floors, fight monsters, find loot, and don't die.",
+      "color": "#0a0808",
+      "accent": "#c0392b",
+      "highlight": "#ffffff",
+      "tags": ["Roguelike", "RPG", "Dungeon"]
+    },
+    {
       "id": "adarkroom",
       "category": "web",
       "path": "games/web-port/adarkroom/",
