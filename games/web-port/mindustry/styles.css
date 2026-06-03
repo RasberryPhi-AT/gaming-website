@@ -1,14 +1,23 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #191919;
+    margin: 0px;
+    padding: 0px;
+}
+
+#embed-html {
+    width: 100%;
+    height: 100%;
+}
+
 canvas {
+    display: block;
     cursor: default;
     outline: none;
     padding: 0px;
     margin: 0px;
-}
-
-body {
-    background-color: #191919;
-    margin: 0px;
-    padding: 0px;
 }
 
 .gdx-meter.red > span {
