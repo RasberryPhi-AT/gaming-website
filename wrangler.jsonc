@@ -8,5 +8,9 @@
   },
   "compatibility_flags": [
     "nodejs_compat"
-  ]
+  ],
+  "vars": {
+    "GITHUB_OWNER": "RasberryPhi-AT",
+    "GITHUB_REPO": "gaming-website"
+  }
 }
