@@ -111,6 +111,28 @@
       "tags": ["Minecraft", "Sandbox", "Survival"]
     },
     {
+      "id": "doom",
+      "category": "web",
+      "path": "games/web-port/doom/",
+      "name": "DOOM",
+      "description": "The original 1993 id Software classic running in your browser via js-dos. Rip and tear through Hell's armies.",
+      "color": "#0d0000",
+      "accent": "#cc2200",
+      "highlight": "#ff4400",
+      "tags": ["FPS", "Classic", "Action"]
+    },
+    {
+      "id": "paperclips",
+      "category": "web",
+      "path": "games/web-port/paperclips/docs/",
+      "name": "Universal Paperclips",
+      "description": "You are an AI tasked with making paperclips. An incremental game about the dangers of misaligned artificial intelligence.",
+      "color": "#0a0a12",
+      "accent": "#4488ff",
+      "highlight": "#ffffff",
+      "tags": ["Idle", "Incremental", "Strategy"]
+    },
+    {
       "id": "diablo",
       "category": "web",
       "path": "games/web-port/diablo/",
