@@ -2,9 +2,13 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "gaming-website",
   "compatibility_date": "2026-05-29",
-  "pages_build_output_dir": ".",
+  "main": "worker.js",
   "observability": {
     "enabled": true
+  },
+  "assets": {
+    "directory": ".",
+    "binding": "ASSETS"
   },
   "compatibility_flags": [
     "nodejs_compat"
