@@ -1,1 +1,7 @@
-[]
+[
+  {
+    "gameName": "freeciv",
+    "status": "failed",
+    "reason": "Blocklisted: C codebase \u2014 no HTML5 browser-playable version in the main repo"
+  }
+]
