@@ -420,6 +420,21 @@
         "Ragdoll",
         "Casual"
       ]
+    },
+    {
+      "id": "6e3f7a40",
+      "category": "web",
+      "name": "Drive Mad",
+      "path": "games/web-port/drivemad/",
+      "description": "A physics-based driving game where you race through obstacle-filled levels without flipping your vehicle. Simple controls, maddening challenge.",
+      "color": "#0d0000",
+      "accent": "#cc2200",
+      "highlight": "#ff6644",
+      "tags": [
+        "Driving",
+        "Physics",
+        "Casual"
+      ]
     }
   ]
 }
