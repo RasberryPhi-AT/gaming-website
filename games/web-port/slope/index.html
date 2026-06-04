@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Slope</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="unity-container">
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+    <div id="loading-cover">
+      <div id="unity-loading-bar">
+        <div id="unity-logo">
+          <img src="loading.png" alt="Slope" style="max-height:120px;">
+        </div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+        <div class="spinner"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="slope_240615.loader.js"></script>
+  <script>
+    var loaderCover = document.getElementById('loading-cover');
+    var progressBar = document.getElementById('unity-progress-bar-full');
+
+    createUnityInstance(document.getElementById('unity-canvas'), {
+      dataUrl:      "473b30f702395e8a0aa6b56d33bcbf14.data.unityweb",
+      frameworkUrl: "a54c9e94420323b025a1d441ea133e93.js.unityweb",
+      codeUrl:      "6c4f366921b11e5243a18d9dabf12f08.wasm.unityweb",
+      streamingAssetsUrl: "StreamingAssets",
+      companyName:   "Slope",
+      productName:   "Slope",
+      productVersion: "1.0",
+    }, function(progress) {
+      progressBar.style.width = (100 * progress) + '%';
+    }).then(function(instance) {
+      loaderCover.style.display = 'none';
+    }).catch(function(msg) {
+      console.error(msg);
+    });
+  </script>
+</body>
+</html>

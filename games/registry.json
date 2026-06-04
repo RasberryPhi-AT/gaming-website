@@ -435,6 +435,21 @@
         "Physics",
         "Casual"
       ]
+    },
+    {
+      "id": "7d02e792",
+      "category": "web",
+      "name": "Slope",
+      "path": "games/web-port/slope/",
+      "description": "Race a ball down an endless neon slope at breakneck speed. Dodge obstacles, stay on the platform, and survive as long as you can.",
+      "color": "#0d0000",
+      "accent": "#cc2200",
+      "highlight": "#ff6644",
+      "tags": [
+        "Endless",
+        "Arcade",
+        "Skill"
+      ]
     }
   ]
 }
