@@ -404,6 +404,21 @@
         "Racing",
         "Multiplayer"
       ]
+    },
+    {
+      "id": "cd9a9654",
+      "category": "web",
+      "path": "games/freeciv/",
+      "name": "freeciv",
+      "description": "Build and manage your own civilization, from ancient times to the modern age. Explore, expand, and conquer to become the greatest empire.",
+      "color": "#050a00",
+      "accent": "#84cc16",
+      "highlight": "#d9f99d",
+      "tags": [
+        "Strategy",
+        "City Builder",
+        "Turn-based"
+      ]
     }
   ]
 }

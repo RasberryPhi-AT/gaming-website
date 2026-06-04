@@ -3,5 +3,10 @@
     "gameName": "freeciv",
     "status": "success",
     "reason": "web"
+  },
+  {
+    "gameName": "freeciv",
+    "status": "success",
+    "reason": "web"
   }
 ]
