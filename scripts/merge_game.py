@@ -219,56 +219,61 @@ if not candidates:
     append_log(game_name, "failed", "Groq response contained no valid URLs.")
     raise SystemExit(0)
 
-# ── 5. Try each candidate until one works ────────────────────────────────────
+# ── 5. Try each candidate — download, build, verify index.html ───────────────
+# Each candidate is fully evaluated (download → optional npm build → index.html
+# check) before moving on. A candidate that downloads fine but has no playable
+# game is cleaned up and the next one is tried automatically.
 
-acquired = False
+index_rel = None
+
 for i, url in enumerate(candidates, 1):
     print(f"[merge_game] trying {i}/{len(candidates)}: {url}")
-    if acquire(url, archive_path, extract_dir):
-        acquired = True
+
+    if os.path.exists(extract_dir):
+        shutil.rmtree(extract_dir)
+
+    if not acquire(url, archive_path, extract_dir):
+        print(f"[merge_game] candidate {i} failed to download — trying next")
+        continue
+
+    # Optional npm build
+    pkg_json = find_file(extract_dir, "package.json")
+    if pkg_json:
+        pkg_dir = os.path.dirname(pkg_json)
+        print(f"[merge_game] package.json found — running npm install/build")
+        try:
+            with open(pkg_json, "r", encoding="utf-8") as f:
+                scripts = json.load(f).get("scripts", {})
+            r = subprocess.run(
+                ["npm", "install"], cwd=pkg_dir,
+                capture_output=True, text=True, timeout=120,
+            )
+            if r.returncode == 0 and "build" in scripts:
+                r = subprocess.run(
+                    ["npm", "run", "build"], cwd=pkg_dir,
+                    capture_output=True, text=True, timeout=180,
+                )
+                if r.returncode == 0:
+                    print("[merge_game] npm build succeeded")
+                else:
+                    print(f"[merge_game] npm build failed:\n{r.stderr.strip()}")
+            elif r.returncode != 0:
+                print(f"[merge_game] npm install failed:\n{r.stderr.strip()}")
+        except Exception as exc:
+            print(f"[merge_game] build step error (non-fatal): {exc}")
+
+    # Verify the result is browser-playable
+    index_rel = find_file(extract_dir, "index.html")
+    if index_rel:
+        print(f"[merge_game] candidate {i} is playable — proceeding")
         break
 
-if not acquired:
-    print("[merge_game] all candidates failed — exiting.")
-    append_log(game_name, "failed", f"All {len(candidates)} candidate(s) failed to download.")
-    raise SystemExit(1)
-
-# ── 6. Optional build step (package.json) ────────────────────────────────────
-
-pkg_json = find_file(extract_dir, "package.json")
-if pkg_json:
-    pkg_dir = os.path.dirname(pkg_json)
-    print(f"[merge_game] package.json found at {pkg_json}")
-    try:
-        with open(pkg_json, "r", encoding="utf-8") as f:
-            pkg_data = json.load(f)
-        scripts = pkg_data.get("scripts", {})
-
-        r = subprocess.run(
-            ["npm", "install"], cwd=pkg_dir,
-            capture_output=True, text=True, timeout=120,
-        )
-        if r.returncode != 0:
-            print(f"[merge_game] npm install failed:\n{r.stderr.strip()}")
-        elif "build" in scripts:
-            r = subprocess.run(
-                ["npm", "run", "build"], cwd=pkg_dir,
-                capture_output=True, text=True, timeout=180,
-            )
-            if r.returncode == 0:
-                print("[merge_game] npm build succeeded")
-            else:
-                print(f"[merge_game] npm run build failed:\n{r.stderr.strip()}")
-    except Exception as exc:
-        print(f"[merge_game] build step error (non-fatal): {exc}")
-
-# ── 7. Locate index.html (after any build output) ────────────────────────────
-
-index_rel = find_file(extract_dir, "index.html")
-if index_rel is None:
-    print("[merge_game] No index.html found — this is not a browser-playable HTML5 game.")
+    print(f"[merge_game] candidate {i} has no index.html — not browser-playable, trying next")
     shutil.rmtree(extract_dir, ignore_errors=True)
-    append_log(game_name, "failed", "No index.html found — not a browser-playable HTML5 game.")
+
+if not index_rel:
+    print("[merge_game] all candidates exhausted — no browser-playable HTML5 game found.")
+    append_log(game_name, "failed", "No browser-playable HTML5 game found across all candidates.")
     raise SystemExit(0)
 
 game_path = index_rel[: index_rel.rfind("/") + 1]
