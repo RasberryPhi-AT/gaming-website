@@ -71,6 +71,7 @@ def try_zip(url, archive_path, extract_dir):
         with zipfile.ZipFile(archive_path, "r") as zf:
             zf.extractall(extract_dir)
         os.remove(archive_path)
+        remove_git_metadata(extract_dir)
         print(f"[merge_game] zip extracted → {extract_dir}/")
         return True
     except Exception as exc:
@@ -89,10 +90,21 @@ def try_clone(url, extract_dir):
         capture_output=True, text=True,
     )
     if result.returncode == 0:
+        remove_git_metadata(extract_dir)
         print(f"[merge_game] cloned → {extract_dir}/")
         return True
     print(f"[merge_game] git clone failed:\n{result.stderr.strip()}")
     return False
+
+
+def remove_git_metadata(directory):
+    """Remove all .git dirs and .gitmodules files so nothing is treated as a submodule."""
+    for dirpath, dirnames, files in os.walk(directory, topdown=False):
+        for dirname in list(dirnames):
+            if dirname == ".git":
+                shutil.rmtree(os.path.join(dirpath, dirname), ignore_errors=True)
+        if ".gitmodules" in files:
+            os.remove(os.path.join(dirpath, ".gitmodules"))
 
 
 def acquire(url, archive_path, extract_dir):
