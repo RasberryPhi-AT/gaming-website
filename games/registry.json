@@ -404,6 +404,21 @@
         "Racing",
         "Multiplayer"
       ]
+    },
+    {
+      "id": "20ab5fde",
+      "category": "web",
+      "path": "games/bananabread/cube2/src/xcode/help/",
+      "name": "BananaBread",
+      "description": "A fast-paced first-person shooter with a focus on speed and action. Blast your way through levels and fight for survival.",
+      "color": "#0d0010",
+      "accent": "#ec4899",
+      "highlight": "#fbcfe8",
+      "tags": [
+        "FPS",
+        "Action",
+        "Shooter"
+      ]
     }
   ]
 }
