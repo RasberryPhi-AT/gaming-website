@@ -1,0 +1,6 @@
+[
+  {
+    "slug": "freeciv",
+    "reason": "C codebase — no HTML5 browser-playable version in the main repo"
+  }
+]

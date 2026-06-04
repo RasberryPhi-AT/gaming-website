@@ -143,7 +143,19 @@ print(f"[merge_game] game={game_name!r}  slug={slug}")
 
 client = Groq(api_key=os.environ["GROQ_API_KEY"])
 
-# ── 2. Duplicate detection ────────────────────────────────────────────────────
+# ── 2. Blocklist check ───────────────────────────────────────────────────────
+
+BLOCKLIST_PATH = "games/blocklist.json"
+if os.path.exists(BLOCKLIST_PATH):
+    with open(BLOCKLIST_PATH, "r", encoding="utf-8") as f:
+        blocklist = json.load(f)
+    for entry in blocklist:
+        if entry["slug"] == slug:
+            print(f"[merge_game] '{game_name}' is blocklisted: {entry['reason']}")
+            append_log(game_name, "failed", f"Blocklisted: {entry['reason']}")
+            raise SystemExit(0)
+
+# ── 3. Duplicate detection ───────────────────────────────────────────────────
 
 if os.path.exists(REGISTRY):
     with open(REGISTRY, "r", encoding="utf-8") as f:
