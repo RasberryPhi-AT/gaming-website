@@ -5,7 +5,7 @@ import urllib.request
 import uuid
 import zipfile
 from groq import Groq
-from duckduckgo_search import DDGS
+from ddgs import DDGS
 
 # ── Card color palettes — one picked at random per game ──────────────────────
 
@@ -64,6 +64,11 @@ search_block = "\n\n".join(
 )
 
 print(f"[merge_game] search returned {len(results)} result(s)")
+
+if not results:
+    print("[merge_game] No search results returned. Exiting.")
+    append_log(game_name, "failed", "Web search returned no results.")
+    raise SystemExit(0)
 
 # ── 3. Ask Groq for a direct zip download URL ─────────────────────────────────
 

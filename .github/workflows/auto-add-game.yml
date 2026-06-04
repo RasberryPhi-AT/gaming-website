@@ -20,7 +20,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install groq duckduckgo_search
+        run: pip install groq ddgs
 
       - name: Run merge_game.py
         env:
