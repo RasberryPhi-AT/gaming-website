@@ -22,6 +22,33 @@
     </div>
   </div>
 
+  <script>
+    // Block window.open calls to external domains so the game cannot
+    // redirect or open new tabs to trendygames.io or any other site.
+    (function () {
+      var _open = window.open.bind(window);
+      window.open = function (url, target, features) {
+        if (url && /^https?:\/\//i.test(url)) {
+          console.warn('[slope] blocked window.open to:', url);
+          return null;
+        }
+        return _open(url, target, features);
+      };
+
+      // Stub Firebase so the embedded auth plugin does nothing.
+      window.firebase = {
+        auth: function () {
+          return {
+            onAuthStateChanged: function () {},
+            signInWithPopup: function () { return Promise.resolve(); },
+            signOut: function () { return Promise.resolve(); },
+          };
+        },
+        initializeApp: function () { return window.firebase; },
+      };
+    })();
+  </script>
+
   <script src="slope_240615.loader.js"></script>
   <script>
     var loaderCover = document.getElementById('loading-cover');
