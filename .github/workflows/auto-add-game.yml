@@ -28,6 +28,11 @@ jobs:
           DISPATCH_EVENT_PAYLOAD: ${{ toJson(github.event) }}
         run: python scripts/merge_game.py
 
+      - name: Preflight check and auto-fix
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: python scripts/preflight.py
+
       - name: Commit and push updated game files
         run: |
           git config user.name "github-actions[bot]"
