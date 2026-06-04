@@ -404,6 +404,22 @@
         "Racing",
         "Multiplayer"
       ]
+    },
+    {
+      "id": "7a201785",
+      "category": "web",
+      "name": "Basket Random",
+      "path": "games/web-port/basketrandom/",
+      "description": "A chaotic ragdoll basketball game where anything can happen. Flail your way to victory in this hilariously unpredictable two-player brawl.",
+      "color": "#0d0010",
+      "accent": "#ec4899",
+      "highlight": "#fbcfe8",
+      "tags": [
+        "Sports",
+        "Basketball",
+        "Ragdoll",
+        "Casual"
+      ]
     }
   ]
 }
