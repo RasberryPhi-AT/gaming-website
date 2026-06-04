@@ -266,8 +266,10 @@ if pkg_json:
 
 index_rel = find_file(extract_dir, "index.html")
 if index_rel is None:
-    print("[merge_game] WARNING: index.html not found — using fallback path")
-    index_rel = f"{extract_dir}/index.html"
+    print("[merge_game] No index.html found — this is not a browser-playable HTML5 game.")
+    shutil.rmtree(extract_dir, ignore_errors=True)
+    append_log(game_name, "failed", "No index.html found — not a browser-playable HTML5 game.")
+    raise SystemExit(0)
 
 game_path = index_rel[: index_rel.rfind("/") + 1]
 print(f"[merge_game] entry={index_rel}  path={game_path}")
