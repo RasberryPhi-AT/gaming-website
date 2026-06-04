@@ -612,6 +612,67 @@
 
     .toggle-label { font-size: 14px; font-weight: 600; color: var(--text); }
 
+    /* ── Save data modal ── */
+    .save-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .save-modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      width: 100%;
+      max-width: 560px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .save-modal-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .save-modal-desc {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .save-modal textarea {
+      width: 100%;
+      height: 140px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: monospace;
+      font-size: 11px;
+      padding: 10px 12px;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.18s;
+    }
+
+    .save-modal textarea:focus { border-color: var(--accent); }
+
+    .save-modal-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
     /* ── Notice banner ── */
     .notice-banner {
       background: color-mix(in srgb, var(--accent) 10%, var(--surface));
@@ -778,6 +839,14 @@
               <button class="setting-btn" data-setting="cards" data-value="cards-sm">Compact</button>
               <button class="setting-btn" data-setting="cards" data-value="cards-md">Normal</button>
               <button class="setting-btn" data-setting="cards" data-value="cards-lg">Large</button>
+            </div>
+          </div>
+
+          <div class="setting-card">
+            <div class="setting-label">Save Data</div>
+            <div class="setting-options" style="flex-direction:column;gap:10px;">
+              <button id="exportSaveBtn" class="setting-btn" style="flex:none;">Export Save Data</button>
+              <button id="importSaveBtn" class="setting-btn" style="flex:none;">Import Save Data</button>
             </div>
           </div>
 
@@ -1000,6 +1069,72 @@
     }
 
     renderGames();
+
+    // ── Save data export / import ─────────────────────────────
+
+    function buildModal(titleText, descText, textareaContent, readOnly, actionHTML) {
+      const overlay = document.createElement('div');
+      overlay.className = 'save-modal-overlay';
+      overlay.innerHTML = `
+        <div class="save-modal">
+          <div class="save-modal-title">${titleText}</div>
+          <div class="save-modal-desc">${descText}</div>
+          <textarea id="saveModalArea" ${readOnly ? 'readonly' : ''} spellcheck="false">${textareaContent}</textarea>
+          <div class="save-modal-actions">${actionHTML}</div>
+        </div>`;
+      overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+      document.body.appendChild(overlay);
+      return overlay;
+    }
+
+    document.getElementById('exportSaveBtn').addEventListener('click', () => {
+      const data = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
+        data[key] = localStorage.getItem(key);
+      }
+      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+      const overlay = buildModal(
+        'Export Save Data',
+        'Copy the string below and keep it somewhere safe. Paste it into Import Save Data on any device to restore your progress.',
+        encoded,
+        true,
+        `<button class="setting-btn" style="flex:none;" id="copyExportBtn">Copy to Clipboard</button>
+         <button class="setting-btn" style="flex:none;" onclick="this.closest('.save-modal-overlay').remove()">Close</button>`
+      );
+      overlay.querySelector('#saveModalArea').select();
+      overlay.querySelector('#copyExportBtn').addEventListener('click', function() {
+        navigator.clipboard.writeText(encoded).then(() => {
+          this.textContent = 'Copied!';
+          setTimeout(() => { this.textContent = 'Copy to Clipboard'; }, 2000);
+        });
+      });
+    });
+
+    document.getElementById('importSaveBtn').addEventListener('click', () => {
+      const overlay = buildModal(
+        'Import Save Data',
+        'Paste your export string below and click Import. This will overwrite your current save data and reload the page.',
+        '',
+        false,
+        `<button class="setting-btn" style="flex:none;" id="confirmImportBtn">Import</button>
+         <button class="setting-btn" style="flex:none;" onclick="this.closest('.save-modal-overlay').remove()">Cancel</button>`
+      );
+      overlay.querySelector('#confirmImportBtn').addEventListener('click', () => {
+        const raw = overlay.querySelector('#saveModalArea').value.trim();
+        if (!raw) return;
+        try {
+          const data = JSON.parse(decodeURIComponent(escape(atob(raw))));
+          for (const [key, value] of Object.entries(data)) {
+            localStorage.setItem(key, value);
+          }
+          location.reload();
+        } catch {
+          overlay.querySelector('.save-modal-desc').textContent = 'Invalid string — please check you pasted the full export and try again.';
+          overlay.querySelector('.save-modal-desc').style.color = '#f97316';
+        }
+      });
+    });
 
     // ── Request a game ────────────────────────────────────────
     document.getElementById('reqSubmitBtn').addEventListener('click', async () => {
