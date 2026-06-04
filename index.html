@@ -1072,6 +1072,139 @@
 
     // ── Save data export / import ─────────────────────────────
 
+    // ── Save data helpers ─────────────────────────────────────
+
+    function bufToB64(buf) {
+      const bytes = new Uint8Array(buf instanceof ArrayBuffer ? buf : buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength));
+      let out = '', chunk = 8192;
+      for (let i = 0; i < bytes.length; i += chunk)
+        out += String.fromCharCode(...bytes.subarray(i, i + chunk));
+      return btoa(out);
+    }
+
+    function b64ToBuf(b64) {
+      const s = atob(b64), buf = new ArrayBuffer(s.length), v = new Uint8Array(buf);
+      for (let i = 0; i < s.length; i++) v[i] = s.charCodeAt(i);
+      return buf;
+    }
+
+    function serVal(v) {
+      if (v instanceof ArrayBuffer) return { __t: 'AB', d: bufToB64(v) };
+      if (ArrayBuffer.isView(v) && !(v instanceof DataView)) return { __t: v.constructor.name, d: bufToB64(v) };
+      return v;
+    }
+
+    function deserVal(v) {
+      if (v && v.__t) {
+        const buf = b64ToBuf(v.d);
+        if (v.__t === 'AB') return buf;
+        const T = globalThis[v.__t];
+        return T ? new T(buf) : buf;
+      }
+      return v;
+    }
+
+    async function exportAllData() {
+      // localStorage
+      const ls = {};
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        ls[k] = localStorage.getItem(k);
+      }
+
+      // IndexedDB
+      const idb = {};
+      try {
+        const dbs = await indexedDB.databases();
+        for (const { name, version } of dbs) {
+          await new Promise(resolve => {
+            const req = indexedDB.open(name, version);
+            req.onerror = resolve;
+            req.onsuccess = e => {
+              const db = e.target.result;
+              const stores = [...db.objectStoreNames];
+              if (!stores.length) { db.close(); resolve(); return; }
+              idb[name] = { version, stores: {} };
+              const tx = db.transaction(stores, 'readonly');
+              let pending = stores.length;
+              stores.forEach(sName => {
+                const store = tx.objectStore(sName);
+                idb[name].stores[sName] = {
+                  keyPath: store.keyPath,
+                  autoIncrement: store.autoIncrement,
+                  indexes: [...store.indexNames].map(n => {
+                    const idx = store.index(n);
+                    return { name: n, keyPath: idx.keyPath, unique: idx.unique, multiEntry: idx.multiEntry };
+                  }),
+                  records: []
+                };
+                const recs = idb[name].stores[sName].records;
+                store.openCursor().onsuccess = ev => {
+                  const cur = ev.target.result;
+                  if (cur) { recs.push({ k: serVal(cur.key), v: serVal(cur.value) }); cur.continue(); }
+                  else if (--pending === 0) { db.close(); resolve(); }
+                };
+              });
+            };
+          });
+        }
+      } catch(e) { console.warn('[save] IDB export skipped:', e); }
+
+      const payload = { ver: 2, ls, idb };
+      return btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+    }
+
+    async function importAllData(encoded) {
+      let payload;
+      try { payload = JSON.parse(decodeURIComponent(escape(atob(encoded)))); }
+      catch { throw new Error('Invalid export string'); }
+
+      // v1 compat (localStorage-only, no wrapper)
+      if (!payload.ver) payload = { ver: 1, ls: payload, idb: {} };
+
+      for (const [k, v] of Object.entries(payload.ls || {})) localStorage.setItem(k, v);
+
+      for (const [dbName, dbInfo] of Object.entries(payload.idb || {})) {
+        await new Promise((resolve, reject) => {
+          const del = indexedDB.deleteDatabase(dbName);
+          del.onerror = reject;
+          del.onsuccess = () => {
+            const open = indexedDB.open(dbName, dbInfo.version);
+            open.onerror = reject;
+            open.onupgradeneeded = e => {
+              const db = e.target.result;
+              for (const [sName, sInfo] of Object.entries(dbInfo.stores)) {
+                const store = db.createObjectStore(sName, {
+                  keyPath: sInfo.keyPath || undefined,
+                  autoIncrement: sInfo.autoIncrement
+                });
+                (sInfo.indexes || []).forEach(idx =>
+                  store.createIndex(idx.name, idx.keyPath, { unique: idx.unique, multiEntry: idx.multiEntry })
+                );
+              }
+            };
+            open.onsuccess = e => {
+              const db = e.target.result;
+              const sNames = Object.keys(dbInfo.stores);
+              if (!sNames.length) { db.close(); resolve(); return; }
+              const tx = db.transaction(sNames, 'readwrite');
+              tx.oncomplete = () => { db.close(); resolve(); };
+              tx.onerror   = () => { db.close(); reject(tx.error); };
+              for (const [sName, sInfo] of Object.entries(dbInfo.stores)) {
+                const store = tx.objectStore(sName);
+                for (const rec of sInfo.records) {
+                  try {
+                    const v = deserVal(rec.v), k = deserVal(rec.k);
+                    sInfo.keyPath ? store.put(v) : store.put(v, k);
+                  } catch(e) { console.warn('[save] skipped record:', e); }
+                }
+              }
+            };
+          };
+        });
+      }
+    }
+
     function buildModal(titleText, descText, textareaContent, readOnly, actionHTML) {
       const overlay = document.createElement('div');
       overlay.className = 'save-modal-overlay';
@@ -1087,51 +1220,59 @@
       return overlay;
     }
 
-    document.getElementById('exportSaveBtn').addEventListener('click', () => {
-      const data = {};
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        data[key] = localStorage.getItem(key);
-      }
-      const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    document.getElementById('exportSaveBtn').addEventListener('click', async () => {
       const overlay = buildModal(
         'Export Save Data',
-        'Copy the string below and keep it somewhere safe. Paste it into Import Save Data on any device to restore your progress.',
-        encoded,
-        true,
-        `<button class="setting-btn" style="flex:none;" id="copyExportBtn">Copy to Clipboard</button>
+        'Collecting save data from all games…',
+        '', true,
+        `<button class="setting-btn" style="flex:none;" id="copyExportBtn" disabled>Copy to Clipboard</button>
          <button class="setting-btn" style="flex:none;" onclick="this.closest('.save-modal-overlay').remove()">Close</button>`
       );
-      overlay.querySelector('#saveModalArea').select();
-      overlay.querySelector('#copyExportBtn').addEventListener('click', function() {
-        navigator.clipboard.writeText(encoded).then(() => {
-          this.textContent = 'Copied!';
-          setTimeout(() => { this.textContent = 'Copy to Clipboard'; }, 2000);
+      try {
+        const encoded = await exportAllData();
+        overlay.querySelector('#saveModalArea').value = encoded;
+        overlay.querySelector('#saveModalArea').select();
+        overlay.querySelector('.save-modal-desc').textContent =
+          'Copy the string below and keep it somewhere safe. Paste it into Import Save Data on any device to restore your progress.';
+        const copyBtn = overlay.querySelector('#copyExportBtn');
+        copyBtn.disabled = false;
+        copyBtn.addEventListener('click', function() {
+          navigator.clipboard.writeText(encoded).then(() => {
+            this.textContent = 'Copied!';
+            setTimeout(() => { this.textContent = 'Copy to Clipboard'; }, 2000);
+          });
         });
-      });
+      } catch(e) {
+        overlay.querySelector('.save-modal-desc').textContent = 'Export failed: ' + e.message;
+        overlay.querySelector('.save-modal-desc').style.color = '#f97316';
+      }
     });
 
     document.getElementById('importSaveBtn').addEventListener('click', () => {
       const overlay = buildModal(
         'Import Save Data',
         'Paste your export string below and click Import. This will overwrite your current save data and reload the page.',
-        '',
-        false,
+        '', false,
         `<button class="setting-btn" style="flex:none;" id="confirmImportBtn">Import</button>
          <button class="setting-btn" style="flex:none;" onclick="this.closest('.save-modal-overlay').remove()">Cancel</button>`
       );
-      overlay.querySelector('#confirmImportBtn').addEventListener('click', () => {
+      overlay.querySelector('#confirmImportBtn').addEventListener('click', async () => {
         const raw = overlay.querySelector('#saveModalArea').value.trim();
         if (!raw) return;
+        const btn = overlay.querySelector('#confirmImportBtn');
+        const desc = overlay.querySelector('.save-modal-desc');
+        btn.disabled = true;
+        btn.textContent = 'Importing…';
         try {
-          const data = JSON.parse(decodeURIComponent(escape(atob(raw))));
-          for (const [key, value] of Object.entries(data)) {
-            localStorage.setItem(key, value);
-          }
+          await importAllData(raw);
           location.reload();
-        } catch {
-          overlay.querySelector('.save-modal-desc').textContent = 'Invalid string — please check you pasted the full export and try again.';
-          overlay.querySelector('.save-modal-desc').style.color = '#f97316';
+        } catch(e) {
+          desc.textContent = e.message === 'Invalid export string'
+            ? 'Invalid string — please check you pasted the full export and try again.'
+            : 'Import failed: ' + e.message;
+          desc.style.color = '#f97316';
+          btn.disabled = false;
+          btn.textContent = 'Import';
         }
       });
     });
