@@ -465,6 +465,21 @@
         "Puzzle",
         "Daily"
       ]
+    },
+    {
+      "id": "b9655880",
+      "category": "web",
+      "name": "Seedship",
+      "path": "games/web-port/seedship/",
+      "description": "Guide a sleeper ship carrying the last of humanity to a new home. Every decision shapes the fate of your colonists.",
+      "color": "#0d0a00",
+      "accent": "#f97316",
+      "highlight": "#fed7aa",
+      "tags": [
+        "Text",
+        "Strategy",
+        "Sci-Fi"
+      ]
     }
   ]
 }
