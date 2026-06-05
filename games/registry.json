@@ -450,6 +450,21 @@
         "Arcade",
         "Skill"
       ]
+    },
+    {
+      "id": "9e037835",
+      "category": "web",
+      "name": "Melodle",
+      "path": "games/web-port/melodle/",
+      "description": "Wordle but for music. Listen to a melody clip and guess the song. A new tune to identify every day.",
+      "color": "#00060f",
+      "accent": "#3b82f6",
+      "highlight": "#93c5fd",
+      "tags": [
+        "Music",
+        "Puzzle",
+        "Daily"
+      ]
     }
   ]
 }
